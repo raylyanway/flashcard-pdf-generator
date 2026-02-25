@@ -1,0 +1,28 @@
+{
+  "name": "flashcard-pdf-generator",
+  "version": "0.1.0",
+  "description": "Generate printable flashcard PDFs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No tests\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raylyanway/flashcard-pdf-generator.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raylyanway/flashcard-pdf-generator/issues"
+  },
+  "homepage": "https://github.com/raylyanway/flashcard-pdf-generator#readme",
+  "keywords": [
+    "flashcards",
+    "pdf",
+    "generator"
+  ],
+  "engines": {
+    "node": ">=16"
+  }
+}
