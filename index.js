@@ -272,7 +272,7 @@ cards.forEach((card, i) => {
   let { base, topExtra, bottomExtra, bounding } = getBoundingTotals();
   while (bounding > maxTextHeight && wrappedLines.length) {
     const removed = wrappedLines.pop();
-    totalTextHeight -= removed.height;
+    totalTextHeight -= removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
     ({ base, topExtra, bottomExtra, bounding } = getBoundingTotals());
   }
 
