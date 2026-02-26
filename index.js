@@ -72,7 +72,7 @@ const defaultRuFont = {
 //
 const cards = [
   [
-    { text: 'Символ (ˈ) ставится перед ударным слогом ставится перед ударным слогом ставится перед ударным слогом', gapTop: 15, gapBottom: 30 },
+    { text: 'Символ (ˈ) ставится перед ударным слогом ставится перед ударным слогом ставится перед ударным слогом'},
     { text: 'маре' },
     { text: [
       {text: 'ˈ', style: 'bold'},
@@ -93,7 +93,7 @@ const cards = [
     { text: 'ударение на второй слог' }
   ],
   [
-    { text: 'Apple', style: 'bold', size: 26 },
+    { text: 'Apple', style: 'bold', size: 26, gapTop: 10 },
     { text: '/эпл/', size: 16, gapBottom: 20 },
     { text: '[ˈæpəl]', size: 16 },
     { text: 'яблоко', size: 18 }
@@ -115,10 +115,30 @@ const cards = [
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
         { text: 'LARGE', size: 26, style: 'bold' }
+      ],
+      gapTop: 10
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
       ]
     }
   ],
   [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ],
+      gapBottom: 20
+    },
     {
       text: [
         { text: 'S', size: 24, style: 'bold' },
@@ -151,17 +171,7 @@ const cards = [
   [
     {
       text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'S', size: 24, style: 'bold' },
+        { text: 'Ssssssssssssssssssssssssssssssssssssssssssssssssssssss', size: 24, style: 'bold' },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
         { text: 'LARGE', size: 26, style: 'bold' }
@@ -172,96 +182,6 @@ const cards = [
     {
       text: [
         { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'T', size: 24, style: 'bold' },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
         { text: 'LARGE', size: 26, style: 'bold' }
