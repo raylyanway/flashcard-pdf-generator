@@ -166,13 +166,16 @@ cards.forEach((card, i) => {
             currentLine = [];
             currentLineWidth = 0;
           }
+          // Add space before part if it's not the first part of this segment
+          const textWithSpace = pidx > 0 ? ' ' + part : part;
+          const textWidthWithSpace = doc.getTextWidth(textWithSpace);
           currentLine.push({
-            text: part,
+            text: textWithSpace,
             fontName: seg.fontName,
             fontStyle: seg.fontStyle,
             fontSize: seg.fontSize
           });
-          currentLineWidth += partWidth;
+          currentLineWidth += textWidthWithSpace;
         });
       } else {
         // try to fit segment on current line
