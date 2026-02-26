@@ -134,47 +134,72 @@ cards.forEach((card, i) => {
       }];
     }
 
-    // choose a representative size for wrapping (first segment)
-    const wrapFontSize = segments[0].fontSize;
-    const wrapFontName = segments[0].fontName;
-    const wrapFontStyle = segments[0].fontStyle;
+    // measure actual width of all segments before wrapping
+    let fullText = '';
+    const segmentWidths = [];
+    segments.forEach(seg => {
+      doc.setFont(seg.fontName, seg.fontStyle);
+      doc.setFontSize(seg.fontSize);
+      const width = doc.getTextWidth(seg.text);
+      segmentWidths.push(width);
+      fullText += seg.text;
+    });
 
-    doc.setFont(wrapFontName, wrapFontStyle);
-    doc.setFontSize(wrapFontSize);
-
-    // Split text to fit within card width with padding
     const maxWidth = cardW - 4; // 2mm padding on each side
-    const fullText = segments.map(s => s.text).join('');
-    const textLines = doc.splitTextToSize(fullText, maxWidth);
 
-    // distribute segments across wrapped lines
-    let segQueue = segments.map(s => ({...s})); // copy to mutate
-    textLines.forEach(textLine => {
-      let remaining = textLine;
-      const lineSegs = [];
-      while (remaining.length && segQueue.length) {
-        const head = segQueue[0];
-        if (remaining.startsWith(head.text)) {
-          // entire segment fits
-          lineSegs.push({ ...head });
-          remaining = remaining.slice(head.text.length);
-          segQueue.shift();
-        } else {
-          // take partial
-          const take = remaining.length;
-          lineSegs.push({
-            text: head.text.slice(0, take),
-            fontName: head.fontName,
-            fontStyle: head.fontStyle,
-            fontSize: head.fontSize
+    // wrap segments, not text
+    let wrappedSegments = [];
+    let currentLineWidth = 0;
+    let currentLine = [];
+
+    segments.forEach((seg, idx) => {
+      const width = segmentWidths[idx];
+      if (width > maxWidth) {
+        // segment itself is too wide, must split it
+        doc.setFont(seg.fontName, seg.fontStyle);
+        doc.setFontSize(seg.fontSize);
+        const splitSeg = doc.splitTextToSize(seg.text, maxWidth);
+        splitSeg.forEach((part, pidx) => {
+          const partWidth = doc.getTextWidth(part);
+          if (currentLineWidth + partWidth > maxWidth && currentLine.length) {
+            wrappedSegments.push([...currentLine]);
+            currentLine = [];
+            currentLineWidth = 0;
+          }
+          currentLine.push({
+            text: part,
+            fontName: seg.fontName,
+            fontStyle: seg.fontStyle,
+            fontSize: seg.fontSize
           });
-          head.text = head.text.slice(take);
-          remaining = '';
+          currentLineWidth += partWidth;
+        });
+      } else {
+        // try to fit segment on current line
+        if (currentLineWidth + width > maxWidth && currentLine.length) {
+          wrappedSegments.push([...currentLine]);
+          currentLine = [];
+          currentLineWidth = 0;
         }
+        currentLine.push(seg);
+        currentLineWidth += width;
       }
+    });
+    if (currentLine.length) {
+      wrappedSegments.push(currentLine);
+    }
 
-      const dims = doc.getTextDimensions(textLine);
-      const lineHeight = dims.h;
+    // convert wrapped segments to wrapped lines
+    wrappedSegments.forEach(lineSegs => {
+      // measure the actual height of this line (max height of any segment)
+      let lineHeight = 0;
+      lineSegs.forEach(seg => {
+        doc.setFont(seg.fontName, seg.fontStyle);
+        doc.setFontSize(seg.fontSize);
+        const dims = doc.getTextDimensions(seg.text);
+        lineHeight = Math.max(lineHeight, dims.h);
+      });
+
       wrappedLines.push({
         segments: lineSegs,
         height: lineHeight
