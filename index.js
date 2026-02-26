@@ -67,6 +67,9 @@ const cards = [
     { text: 'koˈpil' },
     { text: 'copil', size: 20 },
     { text: 'ребёнок', size: 20 },
+    { text: 'ударение на второй слог' },
+    { text: 'copil', size: 20 },
+    { text: 'ребёнок', size: 20 },
     { text: 'ударение на второй слог' }
   ],
   [
@@ -95,10 +98,10 @@ cards.forEach((card, i) => {
   doc.rect(x, y, cardW, cardH);
   doc.setLineDash([]);
 
-  // Calculate total height for vertical centering
+  // Calculate total height for vertical centering & prepare wrapped lines
   let totalTextHeight = 0;
   const wrappedLines = [];
-  
+
   card.forEach(line => {
     const fontName =
       /[а-яА-ЯЁё]/.test(line.text)
@@ -115,45 +118,61 @@ cards.forEach((card, i) => {
     const maxWidth = cardW - 4; // 2mm padding on each side
     const textLines = doc.splitTextToSize(line.text, maxWidth);
 
-    textLines.forEach((textLine, idx) => {
+    textLines.forEach(textLine => {
+      // measure exact height of this line
+      const dims = doc.getTextDimensions(textLine);
+      const lineHeight = dims.h;
+
       wrappedLines.push({
         text: textLine,
-        fontSize
+        fontName,
+        fontStyle,
+        fontSize,
+        height: lineHeight
       });
-      totalTextHeight += fontSize * 0.35;
+      totalTextHeight += lineHeight;
     });
   });
 
-  let currentY = y + (cardH / 2) - (totalTextHeight / 2);
+  // Trim excess lines if the content is taller than the card
+  const verticalPadding = 2; // mm above and below
+  const maxTextHeight = cardH - verticalPadding * 2;
 
-  // Render wrapped lines
-  let lineIndex = 0;
-  card.forEach(line => {
-    const fontName =
-      /[а-яА-ЯЁё]/.test(line.text)
-        ? defaultRuFont.name
-        : defaultFont.name;
+  // compute additional offsets for bounding box (half of first/last line)
+  const getBoundingTotals = () => {
+    const base = totalTextHeight;
+    const topExtra = wrappedLines.length ? wrappedLines[0].height / 2 : 0;
+    const bottomExtra = wrappedLines.length
+      ? wrappedLines[wrappedLines.length - 1].height / 2
+      : 0;
+    return { base, topExtra, bottomExtra, bounding: base + topExtra + bottomExtra };
+  };
 
-    const fontStyle = line.style || defaultFont.style;
-    const fontSize = line.size || defaultFont.size;
+  let { base, topExtra, bottomExtra, bounding } = getBoundingTotals();
+  while (bounding > maxTextHeight && wrappedLines.length) {
+    const removed = wrappedLines.pop();
+    totalTextHeight -= removed.height;
+    ({ base, topExtra, bottomExtra, bounding } = getBoundingTotals());
+  }
 
-    doc.setFont(fontName, fontStyle);
-    doc.setFontSize(fontSize);
+  // start baseline so that bounding box is centered inside padded area
+  let currentY =
+    y +
+    verticalPadding +
+    (maxTextHeight - bounding) / 2 +
+    topExtra;
 
-    // Split text to fit within card width with padding
-    const maxWidth = cardW - 4; // 2mm padding on each side
-    const textLines = doc.splitTextToSize(line.text, maxWidth);
+  // Render wrapped (and possibly truncated) lines
+  wrappedLines.forEach(wline => {
+    doc.setFont(wline.fontName, wline.fontStyle);
+    doc.setFontSize(wline.fontSize);
 
-    // Render each wrapped line
-    textLines.forEach(textLine => {
-      const centerX = x + cardW / 2;
-
-      doc.text(textLine, centerX, currentY, {
-        align: 'center'
-      });
-
-      currentY += fontSize * 0.35;
+    const centerX = x + cardW / 2;
+    doc.text(wline.text, centerX, currentY, {
+      align: 'center'
     });
+
+    currentY += wline.height;
   });
 });
 
