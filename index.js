@@ -178,12 +178,112 @@ const cards = [
       ]
     }
   ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'T', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
 ];
 
 // ---- DRAW CARDS ----
+const cardsPerPage = cols * rows;
+
 cards.forEach((card, i) => {
-  const col = i % cols;
-  const row = Math.floor(i / cols);
+  const pageNumber = Math.floor(i / cardsPerPage);
+  const cardIndexOnPage = i % cardsPerPage;
+  
+  // Create new page if needed
+  if (i > 0 && cardIndexOnPage === 0) {
+    doc.addPage();
+  }
+
+  const col = cardIndexOnPage % cols;
+  const row = Math.floor(cardIndexOnPage / cols);
 
   const x = marginLeft + col * cardW;
   
