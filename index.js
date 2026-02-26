@@ -59,7 +59,12 @@ const cards = [
   [
     { text: 'Символ (ˈ) ставится перед ударным слогом' },
     { text: 'маре' },
-    { text: 'ˈmare' },
+    { text: [
+      {text: 'ˈ', style: 'bold'},
+      {text: 'm'},
+      {text: 'a', style: 'bold'},
+      {text: 're'}
+    ] },
     { text: 'mare', size: 20 },
     { text: 'море', size: 20 },
     { text: 'ударение на первый слог' },
@@ -103,31 +108,75 @@ cards.forEach((card, i) => {
   const wrappedLines = [];
 
   card.forEach(line => {
-    const fontName =
-      /[а-яА-ЯЁё]/.test(line.text)
+    // build segment list; each segment may override style/name but we keep size uniform
+    let segments = [];
+    if (Array.isArray(line.text)) {
+      segments = line.text.map(piece => {
+        const segFontName = /[а-яА-ЯЁё]/.test(piece.text)
+          ? defaultRuFont.name
+          : defaultFont.name;
+        return {
+          text: piece.text,
+          fontName: piece.fontName || segFontName,
+          fontStyle: piece.style || line.style || defaultFont.style,
+          fontSize: piece.size || line.size || defaultFont.size
+        };
+      });
+    } else {
+      const segFontName = /[а-яА-ЯЁё]/.test(line.text)
         ? defaultRuFont.name
         : defaultFont.name;
+      segments = [{
+        text: line.text,
+        fontName: line.fontName || segFontName,
+        fontStyle: line.style || defaultFont.style,
+        fontSize: line.size || defaultFont.size
+      }];
+    }
 
-    const fontStyle = line.style || defaultFont.style;
-    const fontSize = line.size || defaultFont.size;
+    // choose a representative size for wrapping (first segment)
+    const wrapFontSize = segments[0].fontSize;
+    const wrapFontName = segments[0].fontName;
+    const wrapFontStyle = segments[0].fontStyle;
 
-    doc.setFont(fontName, fontStyle);
-    doc.setFontSize(fontSize);
+    doc.setFont(wrapFontName, wrapFontStyle);
+    doc.setFontSize(wrapFontSize);
 
     // Split text to fit within card width with padding
     const maxWidth = cardW - 4; // 2mm padding on each side
-    const textLines = doc.splitTextToSize(line.text, maxWidth);
+    const fullText = segments.map(s => s.text).join('');
+    const textLines = doc.splitTextToSize(fullText, maxWidth);
 
+    // distribute segments across wrapped lines
+    let segQueue = segments.map(s => ({...s})); // copy to mutate
     textLines.forEach(textLine => {
-      // measure exact height of this line
+      let remaining = textLine;
+      const lineSegs = [];
+      while (remaining.length && segQueue.length) {
+        const head = segQueue[0];
+        if (remaining.startsWith(head.text)) {
+          // entire segment fits
+          lineSegs.push({ ...head });
+          remaining = remaining.slice(head.text.length);
+          segQueue.shift();
+        } else {
+          // take partial
+          const take = remaining.length;
+          lineSegs.push({
+            text: head.text.slice(0, take),
+            fontName: head.fontName,
+            fontStyle: head.fontStyle,
+            fontSize: head.fontSize
+          });
+          head.text = head.text.slice(take);
+          remaining = '';
+        }
+      }
+
       const dims = doc.getTextDimensions(textLine);
       const lineHeight = dims.h;
-
       wrappedLines.push({
-        text: textLine,
-        fontName,
-        fontStyle,
-        fontSize,
+        segments: lineSegs,
         height: lineHeight
       });
       totalTextHeight += lineHeight;
@@ -164,12 +213,22 @@ cards.forEach((card, i) => {
 
   // Render wrapped (and possibly truncated) lines
   wrappedLines.forEach(wline => {
-    doc.setFont(wline.fontName, wline.fontStyle);
-    doc.setFontSize(wline.fontSize);
+    // calculate total width of the line from segments
+    let lineWidth = 0;
+    wline.segments.forEach(seg => {
+      doc.setFont(seg.fontName, seg.fontStyle);
+      doc.setFontSize(seg.fontSize);
+      lineWidth += doc.getTextWidth(seg.text);
+    });
 
-    const centerX = x + cardW / 2;
-    doc.text(wline.text, centerX, currentY, {
-      align: 'center'
+    let cursorX = x + cardW / 2 - lineWidth / 2;
+    wline.segments.forEach(seg => {
+      doc.setFont(seg.fontName, seg.fontStyle);
+      doc.setFontSize(seg.fontSize);
+      doc.text(seg.text, cursorX, currentY, {
+        align: 'left'
+      });
+      cursorX += doc.getTextWidth(seg.text);
     });
 
     currentY += wline.height;
