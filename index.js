@@ -2,6 +2,8 @@ import { jsPDF } from 'jspdf';
 
 import lexendLight from './fonts/lexendLight.js';
 import lexendBold from './fonts/lexendBold.js';
+import robotoLight from './fonts/robotoLight.js';
+import robotoBold from './fonts/robotoBold.js';
 
 const doc = new jsPDF({
   unit: 'mm',
@@ -14,6 +16,12 @@ doc.addFont('Lexend-Light.ttf', 'Lexend', 'light');
 
 doc.addFileToVFS('Lexend-Bold.ttf', lexendBold);
 doc.addFont('Lexend-Bold.ttf', 'Lexend', 'bold');
+
+doc.addFileToVFS('Roboto-Light.ttf', robotoLight);
+doc.addFont('Roboto-Light.ttf', 'Roboto', 'light');
+
+doc.addFileToVFS('Roboto-Bold.ttf', robotoBold);
+doc.addFont('Roboto-Bold.ttf', 'Roboto', 'bold');
 
 // ---- PAGE SETUP ----
 const pageWidth = 210;
@@ -37,18 +45,39 @@ const cardH = printableHeight / rows;
 const defaultFont = {
   name: 'Lexend',
   style: 'light',
-  size: 18
+  size: 14
+};
+
+const defaultRuFont = {
+  name: 'Roboto',
+  style: 'light',
+  size: 14
 };
 
 // ---- CARD DATA EXAMPLE ----
 const cards = [
   [
+    { text: 'Символ (ˈ) ставится перед ударным слогом' },
+    { text: 'маре' },
+    { text: 'ˈmare' },
+    { text: 'mare', size: 20 },
+    { text: 'море', size: 20 },
+    { text: 'ударение на первый слог' },
+    { text: 'копил' },
+    { text: 'koˈpil' },
+    { text: 'copil', size: 20 },
+    { text: 'ребёнок', size: 20 },
+    { text: 'ударение на второй слог' }
+  ],
+  [
     { text: 'Apple', style: 'bold', size: 26 },
+    { text: '/эпл/', size: 16 },
     { text: '[ˈæpəl]', size: 16 },
     { text: 'яблоко', size: 18 }
   ],
   [
     { text: 'Banana', style: 'bold', size: 26 },
+    { text: '/бэнанэ/', size: 16 },
     { text: '[bəˈnænə]', size: 16 },
     { text: 'банан', size: 18 }
   ]
@@ -77,10 +106,15 @@ cards.forEach((card, i) => {
 
   // Render lines
   card.forEach(line => {
+    const fontName =
+      /[а-яА-ЯЁё]/.test(line.text)
+        ? defaultRuFont.name
+        : defaultFont.name;
+
     const fontStyle = line.style || defaultFont.style;
     const fontSize = line.size || defaultFont.size;
 
-    doc.setFont(defaultFont.name, fontStyle);
+    doc.setFont(fontName, fontStyle);
     doc.setFontSize(fontSize);
 
     const centerX = x + cardW / 2;
