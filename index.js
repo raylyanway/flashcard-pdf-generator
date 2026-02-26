@@ -39,8 +39,10 @@ const cols = 3;
 const rows = 3;
 
 const cardW = printableWidth / cols;
-const cardH = printableHeight / rows;
+const cardH = printableHeight / rows; // no inter-row gaps
 
+// ---- TEXT SPACING CONFIG ----
+const defaultLineGap = 1; // mm gap between text rows inside a card
 // ---- DEFAULT FONT ----
 const defaultFont = {
   name: 'Lexend',
@@ -114,6 +116,8 @@ cards.forEach((card, i) => {
   const row = Math.floor(i / cols);
 
   const x = marginLeft + col * cardW;
+  
+  // Calculate Y position (rows evenly stacked, no extra gaps)
   const y = marginTop + row * cardH;
 
   doc.setLineDash([1, 2], 0);
@@ -227,7 +231,7 @@ cards.forEach((card, i) => {
     }
 
     // convert wrapped segments to wrapped lines
-    wrappedSegments.forEach(lineSegs => {
+    wrappedSegments.forEach((lineSegs, idx) => {
       // measure the actual height of this line (max height of any segment)
       let lineHeight = 0;
       lineSegs.forEach(seg => {
@@ -237,11 +241,17 @@ cards.forEach((card, i) => {
         lineHeight = Math.max(lineHeight, dims.h);
       });
 
+      // determine gaps before/after this line
+      const gapTop = idx === 0 ? (line.gapTop ?? defaultLineGap) : 0;
+      const gapBottom = idx === wrappedSegments.length - 1 ? (line.gapBottom ?? defaultLineGap) : 0;
+
       wrappedLines.push({
         segments: lineSegs,
-        height: lineHeight
+        height: lineHeight,
+        gapTop,
+        gapBottom
       });
-      totalTextHeight += lineHeight;
+      totalTextHeight += lineHeight + gapTop + gapBottom;
     });
   });
 
@@ -275,6 +285,9 @@ cards.forEach((card, i) => {
 
   // Render wrapped (and possibly truncated) lines
   wrappedLines.forEach(wline => {
+    // apply gap before line
+    currentY += wline.gapTop || 0;
+
     // calculate total width of the line from segments
     let lineWidth = 0;
     wline.segments.forEach(seg => {
@@ -293,7 +306,8 @@ cards.forEach((card, i) => {
       cursorX += doc.getTextWidth(seg.text);
     });
 
-    currentY += wline.height;
+    // advance past line and bottom gap
+    currentY += wline.height + (wline.gapBottom || 0);
   });
 });
 
