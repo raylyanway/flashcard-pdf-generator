@@ -140,15 +140,32 @@ cards.forEach((card, i) => {
         };
       });
     } else {
-      const segFontName = /[а-яА-ЯЁё]/.test(line.text)
-        ? defaultRuFont.name
-        : defaultFont.name;
-      segments = [{
-        text: line.text,
-        fontName: line.fontName || segFontName,
-        fontStyle: line.style || defaultFont.style,
-        fontSize: line.size || defaultFont.size
-      }];
+      // Split text by character to handle mixed scripts and special symbols
+      const chars = line.text.split('');
+      const tempSegments = [];
+      let currentSeg = null;
+      
+      chars.forEach(char => {
+        const isCyrillic = /[а-яА-ЯЁё]/.test(char);
+        const isLatin = /[a-zA-Z]/.test(char);
+        // Assign font based on script
+        const charFontName = isCyrillic ? defaultRuFont.name : defaultFont.name;
+        
+        // Start new segment if font changes
+        if (!currentSeg || currentSeg.fontName !== charFontName) {
+          currentSeg = {
+            text: char,
+            fontName: charFontName,
+            fontStyle: line.style || defaultFont.style,
+            fontSize: line.size || defaultFont.size
+          };
+          tempSegments.push(currentSeg);
+        } else {
+          currentSeg.text += char;
+        }
+      });
+      
+      segments = tempSegments;
     }
 
     // measure actual width of all segments before wrapping
