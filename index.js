@@ -97,14 +97,8 @@ cards.forEach((card, i) => {
 
   // Calculate total height for vertical centering
   let totalTextHeight = 0;
-  card.forEach(line => {
-    const fontSize = line.size || defaultFont.size;
-    totalTextHeight += fontSize * 0.35;
-  });
-
-  let currentY = y + (cardH / 2) - (totalTextHeight / 2);
-
-  // Render lines
+  const wrappedLines = [];
+  
   card.forEach(line => {
     const fontName =
       /[а-яА-ЯЁё]/.test(line.text)
@@ -117,13 +111,49 @@ cards.forEach((card, i) => {
     doc.setFont(fontName, fontStyle);
     doc.setFontSize(fontSize);
 
-    const centerX = x + cardW / 2;
+    // Split text to fit within card width with padding
+    const maxWidth = cardW - 4; // 2mm padding on each side
+    const textLines = doc.splitTextToSize(line.text, maxWidth);
 
-    doc.text(line.text, centerX, currentY, {
-      align: 'center'
+    textLines.forEach((textLine, idx) => {
+      wrappedLines.push({
+        text: textLine,
+        fontSize
+      });
+      totalTextHeight += fontSize * 0.35;
     });
+  });
 
-    currentY += fontSize * 0.35;
+  let currentY = y + (cardH / 2) - (totalTextHeight / 2);
+
+  // Render wrapped lines
+  let lineIndex = 0;
+  card.forEach(line => {
+    const fontName =
+      /[а-яА-ЯЁё]/.test(line.text)
+        ? defaultRuFont.name
+        : defaultFont.name;
+
+    const fontStyle = line.style || defaultFont.style;
+    const fontSize = line.size || defaultFont.size;
+
+    doc.setFont(fontName, fontStyle);
+    doc.setFontSize(fontSize);
+
+    // Split text to fit within card width with padding
+    const maxWidth = cardW - 4; // 2mm padding on each side
+    const textLines = doc.splitTextToSize(line.text, maxWidth);
+
+    // Render each wrapped line
+    textLines.forEach(textLine => {
+      const centerX = x + cardW / 2;
+
+      doc.text(textLine, centerX, currentY, {
+        align: 'center'
+      });
+
+      currentY += fontSize * 0.35;
+    });
   });
 });
 
