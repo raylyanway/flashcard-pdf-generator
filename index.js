@@ -72,7 +72,7 @@ const defaultRuFont = {
 //
 const cards = [
   [
-    { text: 'Символ (ˈ) ставится перед ударным слогом' },
+    { text: 'Символ (ˈ) ставится перед ударным слогом ставится перед ударным слогом ставится перед ударным слогом', gapTop: 15, gapBottom: 30 },
     { text: 'маре' },
     { text: [
       {text: 'ˈ', style: 'bold'},
@@ -94,7 +94,7 @@ const cards = [
   ],
   [
     { text: 'Apple', style: 'bold', size: 26 },
-    { text: '/эпл/', size: 16 },
+    { text: '/эпл/', size: 16, gapBottom: 20 },
     { text: '[ˈæpəl]', size: 16 },
     { text: 'яблоко', size: 18 }
   ],
