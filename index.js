@@ -107,7 +107,77 @@ const cards = [
         { text: 'LARGE', size: 26, style: 'bold' }
       ]
     }
-  ]
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
+  [
+    {
+      text: [
+        { text: 'U', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' }
+      ]
+    }
+  ],
 ];
 
 // ---- DRAW CARDS ----
