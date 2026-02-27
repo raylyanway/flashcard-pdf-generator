@@ -35,6 +35,10 @@ export const cards = [
     { text:  [ { text: 'ko' }, {text: 'ˈ', style: 'bold'}, {text: 'p'}, {text: 'i', style: 'bold'}, {text: 'l'} ] },
     { text: 'copil', size: 20 },
     { text: 'ребёнок', size: 20 },
+    { text: [{text: 'коп'}, {text: 'и', style: 'bold'}, {text: 'л'}] },
+    { text:  [ { text: 'ko' }, {text: 'ˈ', style: 'bold'}, {text: 'p'}, {text: 'i', style: 'bold'}, {text: 'l'} ] },
+    { text: [{text: 'коп'}, {text: 'и', style: 'bold'}, {text: 'л'}] },
+    { text:  [ { text: 'ko' }, {text: 'ˈ', style: 'bold'}, {text: 'p'}, {text: 'i', style: 'bold'}, {text: 'l'} ] },
   ],
   [
     { text: 'Символ (ˈ) ставится перед ударным слогом'},
