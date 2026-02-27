@@ -31,12 +31,30 @@ export const cards = [
     ] },
     { text: 'mare', size: 20 },
     { text: 'море', size: 20 },
-    { text: 'ударение на первый слог' },
     { text: [{text: 'коп'}, {text: 'и', style: 'bold'}, {text: 'л'}] },
     { text:  [ { text: 'ko' }, {text: 'ˈ', style: 'bold'}, {text: 'p'}, {text: 'i', style: 'bold'}, {text: 'l'} ] },
     { text: 'copil', size: 20 },
     { text: 'ребёнок', size: 20 },
-    { text: 'ударение на второй слог' },
+  ],
+  [
+    { text: 'Символ (ˈ) ставится перед ударным слогом'},
+    { text: [
+      {text: 'м'},
+      {text: 'а', style: 'bold'},
+      {text: 'ре'}
+    ] },
+    { text: [
+      {text: 'ˈ', style: 'bold'},
+      {text: 'm'},
+      {text: 'a', style: 'bold'},
+      {text: 're'}
+    ] },
+    { text: 'mare', size: 20 },
+    { text: 'море' },
+    { text: [{text: 'коп'}, {text: 'и', style: 'bold'}, {text: 'л'}] },
+    { text:  [ { text: 'ko' }, {text: 'ˈ', style: 'bold'}, {text: 'p'}, {text: 'i', style: 'bold'}, {text: 'l'} ] },
+    { text: 'copil', size: 20 },
+    { text: 'ребёнок'},
   ],
   [
     { text: 'Apple', style: 'bold', size: 26, gapTop: 10 },
