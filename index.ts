@@ -157,7 +157,7 @@ function normalizeSegments(
       lineFontName ||
       detectFontNameForText(String(segment.text ?? '')),
     fontWeight: segment.fontWeight || lineFontWeight || DEFAULTS.fontWeight,
-    fontSize: segment.size || lineFontSize || DEFAULTS.fontSize,
+    fontSize: segment.fontSize || lineFontSize || DEFAULTS.fontSize,
   }));
 }
 

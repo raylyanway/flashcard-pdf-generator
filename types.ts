@@ -3,7 +3,7 @@ export type FontWeight = 'light' | 'bold';
 export interface Segment {
   text: string;
   fontWeight?: FontWeight;
-  size?: number;
+  fontSize?: number;
   fontName?: string;
 }
 
