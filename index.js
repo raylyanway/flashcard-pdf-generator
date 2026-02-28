@@ -193,7 +193,7 @@ function trimToFit(wrappedLines, totalTextHeight, cardH) {
 }
 
 function renderCard(doc, x, y, cardW, cardH, wrappedLines, bounding, topExtra) {
-  doc.setLineDash([1, 2], 0);
+  doc.setLineDash([1, 2]);
   doc.rect(x, y, cardW, cardH);
 
   let currentY = y + wrappedLines[0].height;
