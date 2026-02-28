@@ -5,13 +5,12 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "start": "node index.ts",
+    "start": "tsx index.ts",
     "test": "echo \"No tests\" && exit 0",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
     "format": "prettier --write .",
-    "typecheck": "tsc --noEmit",
-    "build": "tsc"
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -35,12 +34,13 @@
     "jspdf": "^4.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.50.0",
-    "prettier": "^3.8.0",
-    "typescript": "^5.2.0",
-    "@typescript-eslint/parser": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.5.5"
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.2.0"
   }
 }

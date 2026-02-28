@@ -1,13 +1,13 @@
 import { jsPDF } from 'jspdf';
 import type { Card, FontWeight, Line, Segment, WrappedLine } from './types';
 
-import lexendLight from './fonts/lexendLight.ts';
-import lexendBold from './fonts/lexendBold.ts';
-import robotoLight from './fonts/robotoLight.ts';
-import robotoBold from './fonts/robotoBold.ts';
+import lexendLight from './fonts/lexendLight';
+import lexendBold from './fonts/lexendBold';
+import robotoLight from './fonts/robotoLight';
+import robotoBold from './fonts/robotoBold';
 
-// import { cards } from './cards/phonetic.ts';
-import { cards } from './cards/test.ts';
+// import { cards } from './cards/phonetic';
+import { cards } from './cards/test';
 
 // Document and layout helpers
 function createDocument() {

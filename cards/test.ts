@@ -15,7 +15,7 @@
 //    },
 //    { text: 'копил', gapBottom: 0, fontSize: 10, fontWeight: 'bold' }
 
-import { Card } from '../types';
+import type { Card } from '../types';
 
 //   ]
 export const cards: Card[] = [
