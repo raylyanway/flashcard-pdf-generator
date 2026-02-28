@@ -59,7 +59,7 @@ function getLayout() {
     rows,
     cardW,
     cardH,
-    cardsPerPage: cols * rows
+    cardsPerPage: cols * rows,
   };
 }
 
@@ -72,7 +72,7 @@ const DEFAULTS = {
   fontWeight: 'light',
   fontSize: 14,
   defaultFont: { name: 'Lexend', style: 'light', size: 14 },
-  defaultRuFont: { name: 'Roboto', style: 'light', size: 14 }
+  defaultRuFont: { name: 'Roboto', style: 'light', size: 14 },
 };
 
 function detectFontNameForText(text) {
@@ -88,33 +88,46 @@ function setFontStyles({ fontName, fontWeight, fontSize }) {
 function buildWrappedLines(doc, card, cardW) {
   const wrappedLines = [];
   let totalTextHeight = 0;
-  const maxWidth = cardW - (DEFAULTS.cardPadding * 2); // 2mm padding on each side
+  const maxWidth = cardW - DEFAULTS.cardPadding * 2; // 2mm padding on each side
 
-  card.forEach(line => {
+  card.forEach((line) => {
     const segments = buildSegmentsForLine(line);
 
     // measure widths
-    const segWidths = segments.map(seg => {
+    const segWidths = segments.map((seg) => {
       setFontStyles(seg);
       return doc.getTextWidth(seg.text);
     });
 
     // wrap segments
-    const wrappedSegmentLines = wrapSegments(doc, segments, segWidths, maxWidth);
+    const wrappedSegmentLines = wrapSegments(
+      doc,
+      segments,
+      segWidths,
+      maxWidth
+    );
 
     wrappedSegmentLines.forEach((segLine, idx) => {
       // line height is max of segments
       let lineHeight = 0;
-      segLine.forEach(seg => {
+      segLine.forEach((seg) => {
         setFontStyles(seg);
         const dims = doc.getTextDimensions(seg.text);
         lineHeight = Math.max(lineHeight, dims.h);
       });
 
       const gapTop = idx === 0 ? (line.gapTop ?? DEFAULTS.lineGap) : 0;
-      const gapBottom = idx === wrappedSegmentLines.length - 1 ? (line.gapBottom ?? DEFAULTS.lineGap) : 0;
+      const gapBottom =
+        idx === wrappedSegmentLines.length - 1
+          ? (line.gapBottom ?? DEFAULTS.lineGap)
+          : 0;
 
-      wrappedLines.push({ segments: segLine, height: lineHeight, gapTop, gapBottom });
+      wrappedLines.push({
+        segments: segLine,
+        height: lineHeight,
+        gapTop,
+        gapBottom,
+      });
       totalTextHeight += lineHeight + gapTop + gapBottom;
     });
   });
@@ -122,17 +135,35 @@ function buildWrappedLines(doc, card, cardW) {
   return { wrappedLines, totalTextHeight };
 }
 
-function normalizeSegments(segments, lineFontName, lineFontWeight, lineFontSize) {
-    return segments.map(segment => ({
-      text: segment.text,
-      fontName: segment.fontName || lineFontName || detectFontNameForText(segment.text),
-      fontWeight: segment.style || lineFontWeight || DEFAULTS.fontWeight,
-      fontSize: segment.size || lineFontSize || DEFAULTS.fontSize
-    }));
-  }
+function normalizeSegments(
+  segments,
+  lineFontName,
+  lineFontWeight,
+  lineFontSize
+) {
+  return segments.map((segment) => ({
+    text: segment.text,
+    fontName:
+      segment.fontName || lineFontName || detectFontNameForText(segment.text),
+    fontWeight: segment.style || lineFontWeight || DEFAULTS.fontWeight,
+    fontSize: segment.size || lineFontSize || DEFAULTS.fontSize,
+  }));
+}
 
 function buildSegmentsForLine(line) {
-  return Array.isArray(line.text) ? normalizeSegments(line.text, line.fontName, line.fontWeight, line.fontSize) : normalizeSegments(line.text.split('').map(t => ({ text: t })), line.fontName, line.fontWeight, line.fontSize);
+  return Array.isArray(line.text)
+    ? normalizeSegments(
+        line.text,
+        line.fontName,
+        line.fontWeight,
+        line.fontSize
+      )
+    : normalizeSegments(
+        line.text.split('').map((t) => ({ text: t })),
+        line.fontName,
+        line.fontWeight,
+        line.fontSize
+      );
 }
 
 function wrapSegments(doc, segments, segWidths, maxWidth) {
@@ -177,7 +208,8 @@ function trimToFit(wrappedLines, totalTextHeight, cardH) {
 
   while (totalTextHeight > maxTextHeight && wrappedLines.length) {
     const removed = wrappedLines.pop();
-    totalTextHeight -= removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
+    totalTextHeight -=
+      removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
   }
 
   return { wrappedLines, totalTextHeight };
@@ -189,17 +221,17 @@ function renderCard(doc, x, y, cardW, cardH, wrappedLines) {
 
   let currentY = y + wrappedLines[0].height;
 
-  wrappedLines.forEach(wrappedline => {
+  wrappedLines.forEach((wrappedline) => {
     currentY += wrappedline.gapTop || 0;
 
     let lineWidth = 0;
-    wrappedline.segments.forEach(seg => {
+    wrappedline.segments.forEach((seg) => {
       setFontStyles(seg);
       lineWidth += doc.getTextWidth(seg.text);
     });
 
     let cursorX = x + cardW / 2 - lineWidth / 2;
-    wrappedline.segments.forEach(seg => {
+    wrappedline.segments.forEach((seg) => {
       setFontStyles(seg);
       doc.text(seg.text, cursorX, currentY, { align: 'left' });
       cursorX += doc.getTextWidth(seg.text);
@@ -222,7 +254,11 @@ cards.forEach((card, i) => {
   const x = layout.marginLeft + col * layout.cardW;
   const y = layout.marginTop + row * layout.cardH;
 
-  const { wrappedLines, totalTextHeight } = buildWrappedLines(doc, card, layout.cardW);
+  const { wrappedLines, totalTextHeight } = buildWrappedLines(
+    doc,
+    card,
+    layout.cardW
+  );
   const trimmed = trimToFit(wrappedLines, totalTextHeight, layout.cardH);
 
   renderCard(doc, x, y, layout.cardW, layout.cardH, trimmed.wrappedLines);
