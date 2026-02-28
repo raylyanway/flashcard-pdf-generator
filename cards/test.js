@@ -17,14 +17,18 @@
 //   ]
 export const cards = [
   [
-    { text: 'Символ (ˈ) ставится перед ударным слогом ставится перед ударным слогом ставится перед ударным слогом'},
+    {
+      text: 'Символ (ˈ) ставится перед ударным слогом ставится перед ударным слогом ставится перед ударным слогом',
+    },
     { text: 'маре' },
-    { text: [
-      {text: 'ˈ', style: 'bold'},
-      {text: 'm'},
-      {text: 'a', style: 'bold'},
-      {text: 're'}
-    ] },
+    {
+      text: [
+        { text: 'ˈ', style: 'bold' },
+        { text: 'm' },
+        { text: 'a', style: 'bold' },
+        { text: 're' },
+      ],
+    },
     { text: 'mare', size: 20 },
     { text: 'море', size: 20 },
     { text: 'ударение на первый слог' },
@@ -35,13 +39,13 @@ export const cards = [
     { text: 'ударение на второй слог' },
     { text: 'copil', size: 20 },
     { text: 'ребёнок', size: 20 },
-    { text: 'ударение на второй слог' }
+    { text: 'ударение на второй слог' },
   ],
   [
     { text: 'Apple', style: 'bold', size: 26, gapTop: 10 },
     { text: '/эпл/', size: 16, gapBottom: 20 },
     { text: '[ˈæpəl]', size: 16 },
-    { text: 'яблоко', size: 18 }
+    { text: 'яблоко', size: 18 },
   ],
   [
     {
@@ -49,20 +53,9 @@ export const cards = [
         { text: 'S', size: 24, style: 'bold' },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
+        { text: 'LARGE', size: 26, style: 'bold' },
       ],
-      gapTop: 10
-    }
+    },
   ],
   [
     {
@@ -70,28 +63,39 @@ export const cards = [
         { text: 'S', size: 24, style: 'bold' },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
-  ],
-  [
-    {
-      text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
+        { text: 'LARGE', size: 26, style: 'bold' },
       ],
-      gapBottom: 20
+      gapTop: 10,
+    },
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' },
+      ],
+    },
+  ],
+  [
+    {
+      text: [
+        { text: 'S', size: 24, style: 'bold' },
+        { text: 'mall ', size: 18 },
+        { text: 'and ', size: 14 },
+        { text: 'LARGE', size: 26, style: 'bold' },
+      ],
+      gapBottom: 20,
     },
     {
       text: [
         { text: 'S', size: 24, style: 'bold' },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
+        { text: 'LARGE', size: 26, style: 'bold' },
+      ],
+    },
   ],
   [
     {
@@ -99,9 +103,9 @@ export const cards = [
         { text: 'S', size: 24, style: 'bold' },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
+        { text: 'LARGE', size: 26, style: 'bold' },
+      ],
+    },
   ],
   [
     {
@@ -109,19 +113,23 @@ export const cards = [
         { text: 'S', size: 24, style: 'bold' },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
+        { text: 'LARGE', size: 26, style: 'bold' },
+      ],
+    },
   ],
   [
     {
       text: [
-        { text: 'Ssssssssssssssssssssssssssssssssssssssssssssssssssssss', size: 24, style: 'bold' },
+        {
+          text: 'Ssssssssssssssssssssssssssssssssssssssssssssssssssssss',
+          size: 24,
+          style: 'bold',
+        },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
+        { text: 'LARGE', size: 26, style: 'bold' },
+      ],
+    },
   ],
   [
     {
@@ -129,8 +137,8 @@ export const cards = [
         { text: 'U', size: 24, style: 'bold' },
         { text: 'mall ', size: 18 },
         { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' }
-      ]
-    }
+        { text: 'LARGE', size: 26, style: 'bold' },
+      ],
+    },
   ],
-]; 
+];
