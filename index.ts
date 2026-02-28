@@ -1,10 +1,10 @@
 import { jsPDF } from 'jspdf';
 import type { Card, FontWeight, Line, Segment, WrappedLine } from './types';
 
-import lexendLight from './fonts/lexendLight.js';
-import lexendBold from './fonts/lexendBold.js';
-import robotoLight from './fonts/robotoLight.js';
-import robotoBold from './fonts/robotoBold.js';
+import lexendLight from './fonts/lexendLight.ts';
+import lexendBold from './fonts/lexendBold.ts';
+import robotoLight from './fonts/robotoLight.ts';
+import robotoBold from './fonts/robotoBold.ts';
 
 import { cards } from './cards/phonetic.js';
 
