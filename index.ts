@@ -192,8 +192,7 @@ function wrapSegments(
       // break the segment into smaller parts
       setFontStyles(doc, seg);
       const parts = doc.splitTextToSize(seg.text, maxWidth);
-      parts.forEach((part: string, pidx: number) => {
-        const text = pidx > 0 ? ' ' + part : part;
+      parts.forEach((text: string) => {
         const w = doc.getTextWidth(text);
         if (currentWidth + w > maxWidth && currentLine.length) {
           wrapped.push(currentLine);

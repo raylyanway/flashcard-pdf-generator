@@ -17,7 +17,6 @@
 
 import type { Card } from '../types';
 
-//   ]
 export const cards: Card[] = [
   [
     {
@@ -37,8 +36,8 @@ export const cards: Card[] = [
     { text: 'ударение на первый слог' },
     { text: 'копил', gapBottom: 0, fontSize: 10 },
     { text: 'koˈpil' },
-    { text: 'copil', fontSize: 20 },
-    { text: 'ребёнок', fontSize: 20 },
+    { text: 'copil' },
+    { text: 'ребёнок' },
     { text: 'ударение на второй слог' },
     { text: 'copil', fontSize: 20 },
     { text: 'ребёнок', fontSize: 20 },
@@ -113,10 +112,12 @@ export const cards: Card[] = [
   [
     {
       text: [
-        { text: 'S', fontSize: 24, fontWeight: 'bold' },
-        { text: 'mall ', fontSize: 18 },
-        { text: 'and ', fontSize: 14 },
-        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
+        {
+          text: 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss',
+        },
+        {
+          text: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
+        },
       ],
     },
   ],
@@ -124,7 +125,7 @@ export const cards: Card[] = [
     {
       text: [
         {
-          text: 'Ssssssssssssssssssssssssssssssssssssssssssssssssssssss',
+          text: 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1ssssssssssssssssssssssssssssssssssssssssssss2ssssssssssssssss3ssssssssssss4sssssssss',
           fontSize: 24,
           fontWeight: 'bold',
         },
