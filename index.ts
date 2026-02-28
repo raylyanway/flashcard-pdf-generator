@@ -6,7 +6,7 @@ import lexendBold from './fonts/lexendBold.ts';
 import robotoLight from './fonts/robotoLight.ts';
 import robotoBold from './fonts/robotoBold.ts';
 
-import { cards } from './cards/phonetic.js';
+import { cards } from './cards/phonetic.ts';
 
 // Document and layout helpers
 function createDocument() {
