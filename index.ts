@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf';
+import type { Card, Line, Segment, WrappedLine } from './types';
 
 import lexendLight from './fonts/lexendLight.js';
 import lexendBold from './fonts/lexendBold.js';
@@ -14,7 +15,7 @@ function createDocument() {
   return doc;
 }
 
-function addFonts(doc) {
+function addFonts(doc: jsPDF) {
   doc.addFileToVFS('Lexend-Light.ttf', lexendLight);
   doc.addFont('Lexend-Light.ttf', 'Lexend', 'light');
 
@@ -75,18 +76,25 @@ const DEFAULTS = {
   defaultRuFont: { name: 'Roboto', style: 'light', size: 14 },
 };
 
-function detectFontNameForText(text) {
+function detectFontNameForText(text: string): string {
   return /[а-яА-ЯЁё]/.test(text) ? DEFAULTS.ruFontName : DEFAULTS.fontName;
 }
 
-function setFontStyles({ fontName, fontWeight, fontSize }) {
-  doc.setFont(fontName, fontWeight);
-  doc.setFontSize(fontSize);
+function setFontStyles(
+  doc: jsPDF,
+  {
+    fontName,
+    fontWeight,
+    fontSize,
+  }: { fontName?: string; fontWeight?: string; fontSize?: number }
+) {
+  if (fontName) doc.setFont(fontName, fontWeight || 'normal');
+  if (fontSize) doc.setFontSize(fontSize);
 }
 
 // Build wrapped lines for a single card
-function buildWrappedLines(doc, card, cardW) {
-  const wrappedLines = [];
+function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
+  const wrappedLines: WrappedLine[] = [];
   let totalTextHeight = 0;
   const maxWidth = cardW - DEFAULTS.cardPadding * 2; // 2mm padding on each side
 
@@ -95,7 +103,7 @@ function buildWrappedLines(doc, card, cardW) {
 
     // measure widths
     const segWidths = segments.map((seg) => {
-      setFontStyles(seg);
+      setFontStyles(doc, seg);
       return doc.getTextWidth(seg.text);
     });
 
@@ -109,9 +117,10 @@ function buildWrappedLines(doc, card, cardW) {
 
     wrappedSegmentLines.forEach((segLine, idx) => {
       // line height is max of segments
+
       let lineHeight = 0;
       segLine.forEach((seg) => {
-        setFontStyles(seg);
+        setFontStyles(doc, seg);
         const dims = doc.getTextDimensions(seg.text);
         lineHeight = Math.max(lineHeight, dims.h);
       });
@@ -136,24 +145,26 @@ function buildWrappedLines(doc, card, cardW) {
 }
 
 function normalizeSegments(
-  segments,
-  lineFontName,
-  lineFontWeight,
-  lineFontSize
-) {
+  segments: Array<Partial<Segment>>,
+  lineFontName?: string,
+  lineFontWeight?: string,
+  lineFontSize?: number
+): Segment[] {
   return segments.map((segment) => ({
-    text: segment.text,
+    text: String(segment.text ?? ''),
     fontName:
-      segment.fontName || lineFontName || detectFontNameForText(segment.text),
+      segment.fontName ||
+      lineFontName ||
+      detectFontNameForText(String(segment.text ?? '')),
     fontWeight: segment.style || lineFontWeight || DEFAULTS.fontWeight,
     fontSize: segment.size || lineFontSize || DEFAULTS.fontSize,
   }));
 }
 
-function buildSegmentsForLine(line) {
+function buildSegmentsForLine(line: Line): Segment[] {
   return Array.isArray(line.text)
     ? normalizeSegments(
-        line.text,
+        line.text as Array<Partial<Segment>>,
         line.fontName,
         line.fontWeight,
         line.fontSize
@@ -166,18 +177,23 @@ function buildSegmentsForLine(line) {
       );
 }
 
-function wrapSegments(doc, segments, segWidths, maxWidth) {
-  const wrapped = [];
-  let currentLine = [];
+function wrapSegments(
+  doc: jsPDF,
+  segments: Segment[],
+  segWidths: number[],
+  maxWidth: number
+) {
+  const wrapped: Segment[][] = [];
+  let currentLine: Segment[] = [];
   let currentWidth = 0;
 
   segments.forEach((seg, idx) => {
     const segWidth = segWidths[idx];
     if (segWidth > maxWidth) {
       // break the segment into smaller parts
-      setFontStyles(seg);
+      setFontStyles(doc, seg);
       const parts = doc.splitTextToSize(seg.text, maxWidth);
-      parts.forEach((part, pidx) => {
+      parts.forEach((part: string, pidx: number) => {
         const text = pidx > 0 ? ' ' + part : part;
         const w = doc.getTextWidth(text);
         if (currentWidth + w > maxWidth && currentLine.length) {
@@ -186,6 +202,7 @@ function wrapSegments(doc, segments, segWidths, maxWidth) {
           currentWidth = 0;
         }
         currentLine.push({ ...seg, text });
+
         currentWidth += w;
       });
     } else {
@@ -203,11 +220,16 @@ function wrapSegments(doc, segments, segWidths, maxWidth) {
   return wrapped;
 }
 
-function trimToFit(wrappedLines, totalTextHeight, cardH) {
+function trimToFit(
+  wrappedLines: WrappedLine[],
+  totalTextHeight: number,
+  cardH: number
+) {
   const maxTextHeight = cardH - DEFAULTS.cardPadding * 2;
 
   while (totalTextHeight > maxTextHeight && wrappedLines.length) {
     const removed = wrappedLines.pop();
+    if (!removed) break;
     totalTextHeight -=
       removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
   }
@@ -215,24 +237,31 @@ function trimToFit(wrappedLines, totalTextHeight, cardH) {
   return { wrappedLines, totalTextHeight };
 }
 
-function renderCard(doc, x, y, cardW, cardH, wrappedLines) {
-  doc.setLineDash([1, 2]);
+function renderCard(
+  doc: jsPDF,
+  x: number,
+  y: number,
+  cardW: number,
+  cardH: number,
+  wrappedLines: WrappedLine[]
+) {
+  doc.setLineDashPattern([1, 2], 0);
   doc.rect(x, y, cardW, cardH);
 
-  let currentY = y + wrappedLines[0].height;
+  let currentY = y + (wrappedLines[0]?.height ?? 0);
 
-  wrappedLines.forEach((wrappedline) => {
+  wrappedLines.forEach((wrappedline: WrappedLine) => {
     currentY += wrappedline.gapTop || 0;
 
     let lineWidth = 0;
-    wrappedline.segments.forEach((seg) => {
-      setFontStyles(seg);
+    wrappedline.segments.forEach((seg: Segment) => {
+      setFontStyles(doc, seg);
       lineWidth += doc.getTextWidth(seg.text);
     });
 
     let cursorX = x + cardW / 2 - lineWidth / 2;
-    wrappedline.segments.forEach((seg) => {
-      setFontStyles(seg);
+    wrappedline.segments.forEach((seg: Segment) => {
+      setFontStyles(doc, seg);
       doc.text(seg.text, cursorX, currentY, { align: 'left' });
       cursorX += doc.getTextWidth(seg.text);
     });

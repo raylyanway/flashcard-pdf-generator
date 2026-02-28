@@ -8,7 +8,6 @@ coverage/
 dist/
 .build/
 .cache/
-# .vscode/
 .idea/
 *.log
 *.tgz
