@@ -175,24 +175,15 @@ function wrapSegments(doc, segments, segWidths, maxWidth) {
 function trimToFit(wrappedLines, totalTextHeight, cardH) {
   const maxTextHeight = cardH - DEFAULTS.cardPadding * 2;
 
-  const getBounding = () => {
-    const base = totalTextHeight;
-    const topExtra = wrappedLines.length ? wrappedLines[0].height / 2 : 0;
-    const bottomExtra = wrappedLines.length ? wrappedLines[wrappedLines.length - 1].height / 2 : 0;
-    return { base, topExtra, bottomExtra, bounding: base + topExtra + bottomExtra };
-  };
-
-  let { base, topExtra, bottomExtra, bounding } = getBounding();
-  while (bounding > maxTextHeight && wrappedLines.length) {
+  while (totalTextHeight > maxTextHeight && wrappedLines.length) {
     const removed = wrappedLines.pop();
     totalTextHeight -= removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
-    ({ base, topExtra, bottomExtra, bounding } = getBounding());
   }
 
-  return { wrappedLines, totalTextHeight, topExtra, bounding };
+  return { wrappedLines, totalTextHeight };
 }
 
-function renderCard(doc, x, y, cardW, cardH, wrappedLines, bounding, topExtra) {
+function renderCard(doc, x, y, cardW, cardH, wrappedLines) {
   doc.setLineDash([1, 2]);
   doc.rect(x, y, cardW, cardH);
 
@@ -234,7 +225,7 @@ cards.forEach((card, i) => {
   const { wrappedLines, totalTextHeight } = buildWrappedLines(doc, card, layout.cardW);
   const trimmed = trimToFit(wrappedLines, totalTextHeight, layout.cardH);
 
-  renderCard(doc, x, y, layout.cardW, layout.cardH, trimmed.wrappedLines, trimmed.bounding, trimmed.topExtra);
+  renderCard(doc, x, y, layout.cardW, layout.cardH, trimmed.wrappedLines);
 });
 
 doc.save('flashcards.pdf');
