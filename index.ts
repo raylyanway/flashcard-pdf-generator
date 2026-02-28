@@ -6,7 +6,8 @@ import lexendBold from './fonts/lexendBold.ts';
 import robotoLight from './fonts/robotoLight.ts';
 import robotoBold from './fonts/robotoBold.ts';
 
-import { cards } from './cards/phonetic.ts';
+// import { cards } from './cards/phonetic.ts';
+import { cards } from './cards/test.ts';
 
 // Document and layout helpers
 function createDocument() {
@@ -96,7 +97,8 @@ function setFontStyles(
 function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
   const wrappedLines: WrappedLine[] = [];
   let totalTextHeight = 0;
-  const maxWidth = cardW - DEFAULTS.cardPadding * 2; // 2mm padding on each side
+  // 2mm padding on each side
+  const maxWidth = cardW - DEFAULTS.cardPadding * 2;
 
   card.forEach((line) => {
     const segments = buildSegmentsForLine(line);
@@ -107,7 +109,6 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
       return doc.getTextWidth(seg.text);
     });
 
-    // wrap segments
     const wrappedSegmentLines = wrapSegments(
       doc,
       segments,
@@ -116,8 +117,6 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
     );
 
     wrappedSegmentLines.forEach((segLine, idx) => {
-      // line height is max of segments
-
       let lineHeight = 0;
       segLine.forEach((seg) => {
         setFontStyles(doc, seg);

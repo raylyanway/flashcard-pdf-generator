@@ -14,103 +14,118 @@
 //     ],
 //    },
 //    { text: 'копил', gapBottom: 0, size: 10, style: 'bold' }
+
+import { Card } from '../types';
+
 //   ]
-export const cards = [
+export const cards: Card[] = [
   [
     { text: 'Символ (ˈ) ставится перед ударным слогом' },
-    { text: [{ text: 'м' }, { text: 'а', style: 'bold' }, { text: 'ре' }] },
+    {
+      text: [{ text: 'м' }, { text: 'а', fontWeight: 'bold' }, { text: 'ре' }],
+    },
     {
       text: [
-        { text: 'ˈ', style: 'bold' },
+        { text: 'ˈ', fontWeight: 'bold' },
         { text: 'm' },
-        { text: 'a', style: 'bold' },
+        { text: 'a', fontWeight: 'bold' },
         { text: 're' },
       ],
     },
-    { text: 'mare', size: 20 },
-    { text: 'море', size: 20 },
-    { text: [{ text: 'коп' }, { text: 'и', style: 'bold' }, { text: 'л' }] },
+    { text: 'mare', fontSize: 20 },
+    { text: 'море', fontSize: 20 },
+    {
+      text: [{ text: 'коп' }, { text: 'и', fontWeight: 'bold' }, { text: 'л' }],
+    },
     {
       text: [
         { text: 'ko' },
-        { text: 'ˈ', style: 'bold' },
+        { text: 'ˈ', fontWeight: 'bold' },
         { text: 'p' },
-        { text: 'i', style: 'bold' },
+        { text: 'i', fontWeight: 'bold' },
         { text: 'l' },
       ],
     },
-    { text: 'copil', size: 20 },
-    { text: 'ребёнок', size: 20 },
-    { text: [{ text: 'коп' }, { text: 'и', style: 'bold' }, { text: 'л' }] },
+    { text: 'copil', fontSize: 20 },
+    { text: 'ребёнок', fontSize: 20 },
+    {
+      text: [{ text: 'коп' }, { text: 'и', fontWeight: 'bold' }, { text: 'л' }],
+    },
     {
       text: [
         { text: 'ko' },
-        { text: 'ˈ', style: 'bold' },
+        { text: 'ˈ', fontWeight: 'bold' },
         { text: 'p' },
-        { text: 'i', style: 'bold' },
+        { text: 'i', fontWeight: 'bold' },
         { text: 'l' },
       ],
     },
-    { text: [{ text: 'коп' }, { text: 'и', style: 'bold' }, { text: 'л' }] },
+    {
+      text: [{ text: 'коп' }, { text: 'и', fontWeight: 'bold' }, { text: 'л' }],
+    },
     {
       text: [
         { text: 'ko' },
-        { text: 'ˈ', style: 'bold' },
+        { text: 'ˈ', fontWeight: 'bold' },
         { text: 'p' },
-        { text: 'i', style: 'bold' },
+        { text: 'i', fontWeight: 'bold' },
         { text: 'l' },
       ],
     },
   ],
   [
     { text: 'Символ (ˈ) ставится перед ударным слогом' },
-    { text: [{ text: 'м' }, { text: 'а', style: 'bold' }, { text: 'ре' }] },
+    {
+      text: [{ text: 'м' }, { text: 'а', fontWeight: 'bold' }, { text: 'ре' }],
+    },
     {
       text: [
-        { text: 'ˈ', style: 'bold' },
+        { text: 'ˈ', fontWeight: 'bold' },
         { text: 'm' },
-        { text: 'a', style: 'bold' },
+        { text: 'a', fontWeight: 'bold' },
         { text: 're' },
       ],
     },
-    { text: 'mare', size: 20 },
-    { text: 'море' },
-    { text: [{ text: 'коп' }, { text: 'и', style: 'bold' }, { text: 'л' }] },
+    { text: 'mare', fontSize: 20 },
+    { text: 'море', fontSize: 20 },
+    {
+      text: [{ text: 'коп' }, { text: 'и', fontWeight: 'bold' }, { text: 'л' }],
+    },
     {
       text: [
         { text: 'ko' },
-        { text: 'ˈ', style: 'bold' },
+        { text: 'ˈ', fontWeight: 'bold' },
         { text: 'p' },
-        { text: 'i', style: 'bold' },
+        { text: 'i', fontWeight: 'bold' },
         { text: 'l' },
       ],
     },
-    { text: 'copil', size: 20 },
-    { text: 'ребёнок' },
+    { text: 'copil', fontSize: 20 },
+    { text: 'ребёнок', fontSize: 20 },
   ],
   [
-    { text: 'Apple', style: 'bold', size: 26, gapTop: 10 },
-    { text: '/эпл/', size: 16, gapBottom: 20 },
-    { text: '[ˈæpəl]', size: 16 },
-    { text: 'яблоко', size: 18 },
+    { text: 'Apple', fontWeight: 'bold', fontSize: 26, gapTop: 10 },
+    { text: '/эпл/', fontSize: 16, gapBottom: 20 },
+    { text: '[ˈæpəl]', fontSize: 16 },
+    { text: 'яблоко', fontSize: 18 },
   ],
   [
     {
       text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'S', fontSize: 24, fontWeight: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
     },
   ],
   [
     {
       text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'S', fontSize: 24, fontWeight: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
       gapTop: 10,
     },
@@ -118,49 +133,49 @@ export const cards = [
   [
     {
       text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'S', fontSize: 24, fontWeight: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
     },
   ],
   [
     {
       text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'S', fontSize: 24, fontWeight: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
       gapBottom: 20,
     },
     {
       text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'S', fontSize: 24, fontWeight: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
     },
   ],
   [
     {
       text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'S', fontSize: 24, fontWeight: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
     },
   ],
   [
     {
       text: [
-        { text: 'S', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'S', fontSize: 24, fontWeight: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
     },
   ],
@@ -169,22 +184,22 @@ export const cards = [
       text: [
         {
           text: 'Ssssssssssssssssssssssssssssssssssssssssssssssssssssss',
-          size: 24,
-          style: 'bold',
+          fontSize: 24,
+          fontWeight: 'bold',
         },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
     },
   ],
   [
     {
       text: [
-        { text: 'U', size: 24, style: 'bold' },
-        { text: 'mall ', size: 18 },
-        { text: 'and ', size: 14 },
-        { text: 'LARGE', size: 26, style: 'bold' },
+        { text: 'U', fontSize: 24, fontWeight: 'bold' },
+        { text: 'mall ', fontSize: 18 },
+        { text: 'and ', fontSize: 14 },
+        { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },
       ],
     },
   ],
