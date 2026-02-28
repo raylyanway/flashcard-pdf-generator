@@ -66,23 +66,36 @@ function getLayout() {
 // Fonts and spacing defaults
 const DEFAULTS = {
   lineGap: 1,
+  cardPadding: 2,
+  fontName: 'Lexend',
+  ruFontName: 'Roboto',
+  fontWeight: 'light',
+  fontSize: 14,
   defaultFont: { name: 'Lexend', style: 'light', size: 14 },
   defaultRuFont: { name: 'Roboto', style: 'light', size: 14 }
 };
+
+function detectFontNameForText(text) {
+  return /[а-яА-ЯЁё]/.test(text) ? DEFAULTS.ruFontName : DEFAULTS.fontName;
+}
+
+function setFontStyles({ fontName, fontWeight, fontSize }) {
+  doc.setFont(fontName, fontWeight);
+  doc.setFontSize(fontSize);
+}
 
 // Build wrapped lines for a single card
 function buildWrappedLines(doc, card, cardW) {
   const wrappedLines = [];
   let totalTextHeight = 0;
-  const maxWidth = cardW - 4; // 2mm padding on each side
+  const maxWidth = cardW - (DEFAULTS.cardPadding * 2); // 2mm padding on each side
 
   card.forEach(line => {
     const segments = buildSegmentsForLine(line);
 
     // measure widths
     const segWidths = segments.map(seg => {
-      doc.setFont(seg.fontName, seg.fontStyle);
-      doc.setFontSize(seg.fontSize);
+      setFontStyles(seg);
       return doc.getTextWidth(seg.text);
     });
 
@@ -93,8 +106,7 @@ function buildWrappedLines(doc, card, cardW) {
       // line height is max of segments
       let lineHeight = 0;
       segLine.forEach(seg => {
-        doc.setFont(seg.fontName, seg.fontStyle);
-        doc.setFontSize(seg.fontSize);
+        setFontStyles(seg);
         const dims = doc.getTextDimensions(seg.text);
         lineHeight = Math.max(lineHeight, dims.h);
       });
@@ -110,47 +122,29 @@ function buildWrappedLines(doc, card, cardW) {
   return { wrappedLines, totalTextHeight };
 }
 
-function buildSegmentsForLine(line) {
-  // normalize input into an array of segments {text,fontName,fontStyle,fontSize}
-  if (Array.isArray(line.text)) {
-    return line.text.map(piece => ({
-      text: piece.text,
-      fontName: piece.fontName || (/[а-яА-ЯЁё]/.test(piece.text) ? DEFAULTS.defaultRuFont.name : DEFAULTS.defaultFont.name),
-      fontStyle: piece.style || line.style || DEFAULTS.defaultFont.style,
-      fontSize: piece.size || line.size || DEFAULTS.defaultFont.size
+function normalizeSegments(segments, lineFontName, lineFontWeight, lineFontSize) {
+    return segments.map(segment => ({
+      text: segment.text,
+      fontName: segment.fontName || lineFontName || detectFontNameForText(segment.text),
+      fontWeight: segment.style || lineFontWeight || DEFAULTS.fontWeight,
+      fontSize: segment.size || lineFontSize || DEFAULTS.fontSize
     }));
   }
 
-  // split mixed-script text into segments per script
-  const chars = line.text.split('');
-  const segments = [];
-  let cur = null;
-
-  chars.forEach(ch => {
-    const isCyr = /[а-яА-ЯЁё]/.test(ch);
-    const fontName = isCyr ? DEFAULTS.defaultRuFont.name : DEFAULTS.defaultFont.name;
-    if (!cur || cur.fontName !== fontName) {
-      cur = { text: ch, fontName, fontStyle: line.style || DEFAULTS.defaultFont.style, fontSize: line.size || DEFAULTS.defaultFont.size };
-      segments.push(cur);
-    } else {
-      cur.text += ch;
-    }
-  });
-
-  return segments;
+function buildSegmentsForLine(line) {
+  return Array.isArray(line.text) ? normalizeSegments(line.text, line.fontName, line.fontWeight, line.fontSize) : normalizeSegments(line.text.split('').map(t => ({ text: t })), line.fontName, line.fontWeight, line.fontSize);
 }
 
-function wrapSegments(doc, segments, widths, maxWidth) {
+function wrapSegments(doc, segments, segWidths, maxWidth) {
   const wrapped = [];
   let currentLine = [];
   let currentWidth = 0;
 
   segments.forEach((seg, idx) => {
-    const width = widths[idx];
-    if (width > maxWidth) {
+    const segWidth = segWidths[idx];
+    if (segWidth > maxWidth) {
       // break the segment into smaller parts
-      doc.setFont(seg.fontName, seg.fontStyle);
-      doc.setFontSize(seg.fontSize);
+      setFontStyles(seg);
       const parts = doc.splitTextToSize(seg.text, maxWidth);
       parts.forEach((part, pidx) => {
         const text = pidx > 0 ? ' ' + part : part;
@@ -160,17 +154,17 @@ function wrapSegments(doc, segments, widths, maxWidth) {
           currentLine = [];
           currentWidth = 0;
         }
-        currentLine.push({ text, fontName: seg.fontName, fontStyle: seg.fontStyle, fontSize: seg.fontSize });
+        currentLine.push({ ...seg, text });
         currentWidth += w;
       });
     } else {
-      if (currentWidth + width > maxWidth && currentLine.length) {
+      if (currentWidth + segWidth > maxWidth && currentLine.length) {
         wrapped.push(currentLine);
         currentLine = [];
         currentWidth = 0;
       }
       currentLine.push(seg);
-      currentWidth += width;
+      currentWidth += segWidth;
     }
   });
 
@@ -179,8 +173,7 @@ function wrapSegments(doc, segments, widths, maxWidth) {
 }
 
 function trimToFit(wrappedLines, totalTextHeight, cardH) {
-  const verticalPadding = 2;
-  const maxTextHeight = cardH - verticalPadding * 2;
+  const maxTextHeight = cardH - DEFAULTS.cardPadding * 2;
 
   const getBounding = () => {
     const base = totalTextHeight;
@@ -202,32 +195,26 @@ function trimToFit(wrappedLines, totalTextHeight, cardH) {
 function renderCard(doc, x, y, cardW, cardH, wrappedLines, bounding, topExtra) {
   doc.setLineDash([1, 2], 0);
   doc.rect(x, y, cardW, cardH);
-  doc.setLineDash([]);
 
-  const verticalPadding = 2;
-  const maxTextHeight = cardH - verticalPadding * 2;
+  let currentY = y + wrappedLines[0].height;
 
-  let currentY = y + verticalPadding + (maxTextHeight - bounding) / 2 + topExtra;
-
-  wrappedLines.forEach(wline => {
-    currentY += wline.gapTop || 0;
+  wrappedLines.forEach(wrappedline => {
+    currentY += wrappedline.gapTop || 0;
 
     let lineWidth = 0;
-    wline.segments.forEach(seg => {
-      doc.setFont(seg.fontName, seg.fontStyle);
-      doc.setFontSize(seg.fontSize);
+    wrappedline.segments.forEach(seg => {
+      setFontStyles(seg);
       lineWidth += doc.getTextWidth(seg.text);
     });
 
     let cursorX = x + cardW / 2 - lineWidth / 2;
-    wline.segments.forEach(seg => {
-      doc.setFont(seg.fontName, seg.fontStyle);
-      doc.setFontSize(seg.fontSize);
+    wrappedline.segments.forEach(seg => {
+      setFontStyles(seg);
       doc.text(seg.text, cursorX, currentY, { align: 'left' });
       cursorX += doc.getTextWidth(seg.text);
     });
 
-    currentY += wline.height + (wline.gapBottom || 0);
+    currentY += wrappedline.height;
   });
 }
 
