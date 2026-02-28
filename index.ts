@@ -1,5 +1,5 @@
 import { jsPDF } from 'jspdf';
-import type { Card, Line, Segment, WrappedLine } from './types';
+import type { Card, FontWeight, Line, Segment, WrappedLine } from './types';
 
 import lexendLight from './fonts/lexendLight.js';
 import lexendBold from './fonts/lexendBold.js';
@@ -70,7 +70,7 @@ const DEFAULTS = {
   cardPadding: 2,
   fontName: 'Lexend',
   ruFontName: 'Roboto',
-  fontWeight: 'light',
+  fontWeight: 'light' as FontWeight,
   fontSize: 14,
   defaultFont: { name: 'Lexend', style: 'light', size: 14 },
   defaultRuFont: { name: 'Roboto', style: 'light', size: 14 },
@@ -147,7 +147,7 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
 function normalizeSegments(
   segments: Array<Partial<Segment>>,
   lineFontName?: string,
-  lineFontWeight?: string,
+  lineFontWeight?: FontWeight,
   lineFontSize?: number
 ): Segment[] {
   return segments.map((segment) => ({
@@ -156,7 +156,7 @@ function normalizeSegments(
       segment.fontName ||
       lineFontName ||
       detectFontNameForText(String(segment.text ?? '')),
-    fontWeight: segment.style || lineFontWeight || DEFAULTS.fontWeight,
+    fontWeight: segment.fontWeight || lineFontWeight || DEFAULTS.fontWeight,
     fontSize: segment.size || lineFontSize || DEFAULTS.fontSize,
   }));
 }
