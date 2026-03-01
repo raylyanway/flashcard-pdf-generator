@@ -2,28 +2,28 @@ module.exports = {
   root: true,
   env: {
     node: true,
-    es2021: true
+    es2021: true,
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2020,
-    sourceType: 'module'
+    sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended'
+    'prettier',
   ],
   rules: {
-    'prettier/prettier': 'error'
+    // 'prettier/prettier': 'error'
   },
   overrides: [
     {
       files: ['*.js'],
       rules: {
-        '@typescript-eslint/no-var-requires': 'off'
-      }
-    }
-  ]
+        '@typescript-eslint/no-var-requires': 'off',
+      },
+    },
+  ],
 };
