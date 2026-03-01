@@ -17,6 +17,25 @@
 
 import type { Card } from '../types';
 
+export const cards1: Card[] = [
+  [
+    {
+      text: [
+        {
+          text: 'Symbol should be plac',
+        },
+        {
+          text: 'e',
+          fontWeight: 'bold',
+        },
+        {
+          text: 'd',
+        },
+      ],
+    },
+  ],
+];
+
 export const cards: Card[] = [
   [
     {
@@ -25,7 +44,7 @@ export const cards: Card[] = [
     {
       text: [
         {
-          text: 'Символ (ˈˈˈ) ILilI',
+          text: 'Символ (ˈˈˈ) подгото',
         },
         {
           text: 'в',

@@ -89,19 +89,7 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
 
   card.forEach((line) => {
     const segments = buildSegmentsForLine(line);
-
-    // measure widths
-    const segWidths = segments.map((seg) => {
-      setFontStyles(doc, seg);
-      return doc.getTextWidth(seg.text);
-    });
-
-    const wrappedSegmentLines = wrapSegments(
-      doc,
-      segments,
-      segWidths,
-      maxWidth
-    );
+    const wrappedSegmentLines = wrapSegments(doc, segments, maxWidth);
 
     wrappedSegmentLines.forEach((segLine, idx) => {
       let lineHeight = 0;
@@ -148,42 +136,98 @@ function buildSegmentsForLine(line: Line): Segment[] {
   }));
 }
 
-function wrapSegments(
-  doc: jsPDF,
-  segments: Segment[],
-  segWidths: number[],
-  maxWidth: number
-) {
+function wrapSegments(doc: jsPDF, segments: Segment[], maxWidth: number) {
   const wrapped: Segment[][] = [];
   let currentLine: Segment[] = [];
   let currentWidth = 0;
 
-  segments.forEach((seg, idx) => {
-    const segWidth = segWidths[idx];
-    if (segWidth > maxWidth) {
-      // break the segment into smaller parts
-      setFontStyles(doc, seg);
-      const parts = doc.splitTextToSize(seg.text, maxWidth);
-      parts.forEach((text: string) => {
-        const w = doc.getTextWidth(text);
-        if (currentWidth + w > maxWidth && currentLine.length) {
-          wrapped.push(currentLine);
-          currentLine = [];
-          currentWidth = 0;
-        }
-        currentLine.push({ ...seg, text });
-
-        currentWidth += w;
+  // 1. Break every segment into "Atoms" (either a word-chunk or whitespace)
+  const atoms: {
+    seg: Segment;
+    text: string;
+    width: number;
+    isSpace: boolean;
+  }[] = [];
+  segments.forEach((seg) => {
+    setFontStyles(doc, seg);
+    // Split by spaces but keep them: "Hello world" -> ["Hello", " ", "world"]
+    const tokens = seg.text.split(/(\s+)/);
+    tokens.forEach((token) => {
+      if (!token) return;
+      atoms.push({
+        seg,
+        text: token,
+        width: doc.getTextWidth(token),
+        isSpace: /\s+/.test(token),
       });
-    } else {
-      if (currentWidth + segWidth > maxWidth && currentLine.length) {
-        wrapped.push(currentLine);
-        currentLine = [];
-        currentWidth = 0;
+    });
+  });
+
+  // 2. Group consecutive non-space atoms into "Cohesive Groups"
+  // This ensures "plac" + "e" + "d" are treated as a single unit.
+  const groups: {
+    atoms: typeof atoms;
+    totalWidth: number;
+    isSpace: boolean;
+  }[] = [];
+  let currentGroup: typeof atoms = [];
+
+  atoms.forEach((atom, i) => {
+    if (atom.isSpace) {
+      if (currentGroup.length) {
+        groups.push({
+          atoms: currentGroup,
+          totalWidth: currentGroup.reduce((s, a) => s + a.width, 0),
+          isSpace: false,
+        });
+        currentGroup = [];
       }
-      currentLine.push(seg);
-      currentWidth += segWidth;
+      groups.push({ atoms: [atom], totalWidth: atom.width, isSpace: true });
+    } else {
+      currentGroup.push(atom);
+      if (i === atoms.length - 1) {
+        groups.push({
+          atoms: currentGroup,
+          totalWidth: currentGroup.reduce((s, a) => s + a.width, 0),
+          isSpace: false,
+        });
+      }
     }
+  });
+
+  // 3. Render Groups with character-fallback for long words
+  groups.forEach((group) => {
+    // If the whole word group is wider than maxWidth, we MUST break it by character
+    if (group.totalWidth > maxWidth && !group.isSpace) {
+      group.atoms.forEach((atom) => {
+        const chars = atom.text.split('');
+        chars.forEach((char) => {
+          const charW = doc.getTextWidth(char);
+          if (currentWidth + charW > maxWidth && currentLine.length) {
+            wrapped.push(currentLine);
+            currentLine = [];
+            currentWidth = 0;
+          }
+          currentLine.push({ ...atom.seg, text: char });
+          currentWidth += charW;
+        });
+      });
+      return;
+    }
+
+    // Normal wrapping for standard words/groups
+    if (currentWidth + group.totalWidth > maxWidth && currentLine.length) {
+      wrapped.push(currentLine);
+      currentLine = [];
+      currentWidth = 0;
+      if (group.isSpace) return; // Don't start a new line with a space
+    }
+
+    // Add the group to the line
+    group.atoms.forEach((atom) => {
+      currentLine.push({ ...atom.seg, text: atom.text });
+      currentWidth += atom.width;
+    });
   });
 
   if (currentLine.length) wrapped.push(currentLine);
