@@ -131,8 +131,8 @@ function buildSegmentsForLine(line: Line): Segment[] {
 
   return text.map((segment) => ({
     text: segment.text ?? '',
-    fontWeight: segment.fontWeight || line.fontWeight || DEFAULTS.fontWeight,
-    fontSize: segment.fontSize || line.fontSize || DEFAULTS.fontSize,
+    fontWeight: segment.fontWeight || line.fontWeight,
+    fontSize: segment.fontSize || line.fontSize,
   }));
 }
 
