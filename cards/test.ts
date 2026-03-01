@@ -25,7 +25,7 @@ export const cards: Card[] = [
     {
       text: [
         {
-          text: 'Символ (ˈˈˈ) ILilI\n',
+          text: 'Символ (ˈˈˈ) ILilI',
         },
         {
           text: 'в',
