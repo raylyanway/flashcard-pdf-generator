@@ -130,25 +130,22 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
   return { wrappedLines, totalTextHeight };
 }
 
-function normalizeSegments(
-  segments: Array<Partial<Segment>>,
-  lineFontWeight?: FontWeight,
-  lineFontSize?: number
-): Segment[] {
-  return segments.map((segment) => ({
-    text: String(segment.text ?? ''),
-    fontWeight: segment.fontWeight || lineFontWeight || DEFAULTS.fontWeight,
-    fontSize: segment.fontSize || lineFontSize || DEFAULTS.fontSize,
-  }));
-}
-
 function buildSegmentsForLine(line: Line): Segment[] {
-  const text = Array.isArray(line.text) ? line.text : [line];
-  return normalizeSegments(
-    text as Array<Partial<Segment>>,
-    line.fontWeight,
-    line.fontSize
-  );
+  const text = Array.isArray(line.text)
+    ? line.text
+    : [
+        {
+          text: line.text,
+          fontWeight: line.fontWeight,
+          fontSize: line.fontSize,
+        },
+      ];
+
+  return text.map((segment) => ({
+    text: segment.text ?? '',
+    fontWeight: segment.fontWeight || line.fontWeight || DEFAULTS.fontWeight,
+    fontSize: segment.fontSize || line.fontSize || DEFAULTS.fontSize,
+  }));
 }
 
 function wrapSegments(

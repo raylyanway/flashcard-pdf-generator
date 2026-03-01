@@ -4,12 +4,10 @@ export interface Segment {
   text: string;
   fontWeight?: FontWeight;
   fontSize?: number;
-  // fontName?: string;
 }
 
 export interface Line {
   text: string | Segment[];
-  // fontName?: string;
   fontWeight?: FontWeight;
   fontSize?: number;
   gapTop?: number;
