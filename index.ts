@@ -1,10 +1,8 @@
 import { jsPDF } from 'jspdf';
 import type { Card, FontWeight, Line, Segment, WrappedLine } from './types';
 
-import lexendLight from './fonts/lexendLight';
-import lexendBold from './fonts/lexendBold';
-import robotoLight from './fonts/robotoLight';
-import robotoBold from './fonts/robotoBold';
+import notoSansBold from './fonts/notoSansBold';
+import notoSansLight from './fonts/notoSansLight';
 
 // import { cards } from './cards/phonetic';
 import { cards } from './cards/test';
@@ -17,17 +15,11 @@ function createDocument() {
 }
 
 function addFonts(doc: jsPDF) {
-  doc.addFileToVFS('Lexend-Light.ttf', lexendLight);
-  doc.addFont('Lexend-Light.ttf', 'Lexend', 'light');
+  doc.addFileToVFS('NotoSans-Light.ttf', notoSansLight);
+  doc.addFont('NotoSans-Light.ttf', 'Noto Sans', 'light');
 
-  doc.addFileToVFS('Lexend-Bold.ttf', lexendBold);
-  doc.addFont('Lexend-Bold.ttf', 'Lexend', 'bold');
-
-  doc.addFileToVFS('Roboto-Light.ttf', robotoLight);
-  doc.addFont('Roboto-Light.ttf', 'Roboto', 'light');
-
-  doc.addFileToVFS('Roboto-Bold.ttf', robotoBold);
-  doc.addFont('Roboto-Bold.ttf', 'Roboto', 'bold');
+  doc.addFileToVFS('NotoSans-Bold.ttf', notoSansBold);
+  doc.addFont('NotoSans-Bold.ttf', 'Noto Sans', 'bold');
 }
 
 function getLayout() {
@@ -69,28 +61,23 @@ function getLayout() {
 const DEFAULTS = {
   lineGap: 1,
   cardPadding: 2,
-  fontName: 'Lexend',
-  ruFontName: 'Roboto',
+  fontName: 'Noto Sans',
   fontWeight: 'light' as FontWeight,
   fontSize: 14,
-  defaultFont: { name: 'Lexend', style: 'light', size: 14 },
-  defaultRuFont: { name: 'Roboto', style: 'light', size: 14 },
 };
-
-function detectFontNameForText(text: string): string {
-  return /[а-яА-ЯЁё]/.test(text) ? DEFAULTS.ruFontName : DEFAULTS.fontName;
-}
 
 function setFontStyles(
   doc: jsPDF,
   {
-    fontName,
     fontWeight,
     fontSize,
-  }: { fontName?: string; fontWeight?: string; fontSize?: number }
+  }: {
+    fontWeight?: string;
+    fontSize?: number;
+  }
 ) {
-  if (fontName) doc.setFont(fontName, fontWeight || 'normal');
-  if (fontSize) doc.setFontSize(fontSize);
+  doc.setFont(DEFAULTS.fontName, fontWeight || DEFAULTS.fontWeight);
+  doc.setFontSize(fontSize || DEFAULTS.fontSize);
 }
 
 // Build wrapped lines for a single card
@@ -145,35 +132,23 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
 
 function normalizeSegments(
   segments: Array<Partial<Segment>>,
-  lineFontName?: string,
   lineFontWeight?: FontWeight,
   lineFontSize?: number
 ): Segment[] {
   return segments.map((segment) => ({
     text: String(segment.text ?? ''),
-    fontName:
-      segment.fontName ||
-      lineFontName ||
-      detectFontNameForText(String(segment.text ?? '')),
     fontWeight: segment.fontWeight || lineFontWeight || DEFAULTS.fontWeight,
     fontSize: segment.fontSize || lineFontSize || DEFAULTS.fontSize,
   }));
 }
 
 function buildSegmentsForLine(line: Line): Segment[] {
-  return Array.isArray(line.text)
-    ? normalizeSegments(
-        line.text as Array<Partial<Segment>>,
-        line.fontName,
-        line.fontWeight,
-        line.fontSize
-      )
-    : normalizeSegments(
-        line.text.split('').map((t) => ({ text: t })),
-        line.fontName,
-        line.fontWeight,
-        line.fontSize
-      );
+  const text = Array.isArray(line.text) ? line.text : [line];
+  return normalizeSegments(
+    text as Array<Partial<Segment>>,
+    line.fontWeight,
+    line.fontSize
+  );
 }
 
 function wrapSegments(
