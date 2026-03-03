@@ -110,7 +110,7 @@ export const cards: Card[] = [
   [
     {
       text: [
-        { text: 'S', fontSize: 24, fontWeight: 'bold' },
+        { text: 'Sy', fontSize: 24, fontWeight: 'bold' },
         { text: 'mall ', fontSize: 18 },
         { text: 'and ', fontSize: 14 },
         { text: 'LARGE', fontSize: 26, fontWeight: 'bold' },

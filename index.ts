@@ -1,11 +1,22 @@
 import { jsPDF } from 'jspdf';
-import type { Card, FontWeight, Line, Segment, WrappedLine } from './types';
+import type {
+  Card,
+  FontWeight,
+  HorizontalAlign,
+  Line,
+  Segment,
+  VerticalAlign,
+  WrappedLine,
+} from './types';
 
 import notoSansBold from './fonts/notoSansBold';
 import notoSansLight from './fonts/notoSansLight';
 
 // import { cards } from './cards/phonetic';
 import { cards } from './cards/test';
+
+const horizontalAlign: HorizontalAlign = 'left';
+const verticalAlign: VerticalAlign = 'bottom';
 
 // Document and layout helpers
 function createDocument() {
@@ -257,12 +268,23 @@ function renderCard(
   y: number,
   cardW: number,
   cardH: number,
-  wrappedLines: WrappedLine[]
+  wrappedLines: WrappedLine[],
+  totalTextHeight: number
 ) {
   doc.setLineDashPattern([1, 2], 0);
   doc.rect(x, y, cardW, cardH);
 
-  let currentY = y + (wrappedLines[0]?.height ?? 0);
+  let alignedY: number;
+
+  if (verticalAlign === 'top') {
+    alignedY = y + DEFAULTS.cardPadding;
+  } else if (verticalAlign === 'middle') {
+    alignedY = y + (cardH - totalTextHeight) / 2;
+  } else {
+    alignedY = y + cardH - totalTextHeight - DEFAULTS.cardPadding;
+  }
+
+  let currentY = alignedY + (wrappedLines[0]?.height ?? 0);
 
   wrappedLines.forEach((wrappedline: WrappedLine) => {
     currentY += wrappedline.gapTop || 0;
@@ -273,7 +295,17 @@ function renderCard(
       lineWidth += doc.getTextWidth(seg.text);
     });
 
-    let cursorX = x + cardW / 2 - lineWidth / 2;
+    let cursorX: number;
+
+    if (horizontalAlign === 'left') {
+      cursorX = x + DEFAULTS.cardPadding;
+    } else if (horizontalAlign === 'center') {
+      cursorX = x + (cardW - lineWidth) / 2;
+    } else {
+      cursorX = x + cardW - lineWidth - DEFAULTS.cardPadding;
+    }
+
+    // let cursorX = x + cardW / 2 - lineWidth / 2;
     wrappedline.segments.forEach((seg: Segment) => {
       setFontStyles(doc, seg);
       doc.text(seg.text, cursorX, currentY, { align: 'left' });
@@ -304,7 +336,15 @@ cards.forEach((card, i) => {
   );
   const trimmed = trimToFit(wrappedLines, totalTextHeight, layout.cardH);
 
-  renderCard(doc, x, y, layout.cardW, layout.cardH, trimmed.wrappedLines);
+  renderCard(
+    doc,
+    x,
+    y,
+    layout.cardW,
+    layout.cardH,
+    trimmed.wrappedLines,
+    trimmed.totalTextHeight
+  );
 });
 
 doc.save('flashcards.pdf');
