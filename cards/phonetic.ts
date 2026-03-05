@@ -1,23 +1,5 @@
-// ---- CARD DATA & STYLING ----
-// Segment properties (per letter/word):
-//   text: string (required)
-//   style: 'light' | 'bold' (optional, inherits from line.style)
-//   size: number (optional, inherits from line.size)
-//   fontName: 'Lexend' | 'Roboto' (optional, auto-detected by language)
-//
-// Example with mixed styling:
-//   [
-//    { text: [
-//       { text: 'Bold', style: 'bold', size: 20 },
-//       { text: ' normal ', size: 16 },
-//       { text: 'Large', size: 24 }
-//     ],
-//    },
-//    { text: 'копил', gapBottom: 0, size: 10, style: 'bold' }
-
 import { Card } from '../types';
 
-//   ]
 export const cards: Card[] = [
   [
     { text: 'Символ (ˈ) ставится перед ударным слогом' },
@@ -33,7 +15,8 @@ export const cards: Card[] = [
       ],
     },
     { text: 'mare', fontSize: 20 },
-    { text: 'море', fontSize: 20 },
+    { text: 'море' },
+    { text: '(ударение на первый слог)' },
     {
       text: [{ text: 'коп' }, { text: 'и', fontWeight: 'bold' }, { text: 'л' }],
     },
@@ -47,31 +30,8 @@ export const cards: Card[] = [
       ],
     },
     { text: 'copil', fontSize: 20 },
-    { text: 'ребёнок', fontSize: 20 },
-    {
-      text: [{ text: 'коп' }, { text: 'и', fontWeight: 'bold' }, { text: 'л' }],
-    },
-    {
-      text: [
-        { text: 'ko' },
-        { text: 'ˈ', fontWeight: 'bold' },
-        { text: 'p' },
-        { text: 'i', fontWeight: 'bold' },
-        { text: 'l' },
-      ],
-    },
-    {
-      text: [{ text: 'коп' }, { text: 'и', fontWeight: 'bold' }, { text: 'л' }],
-    },
-    {
-      text: [
-        { text: 'ko' },
-        { text: 'ˈ', fontWeight: 'bold' },
-        { text: 'p' },
-        { text: 'i', fontWeight: 'bold' },
-        { text: 'l' },
-      ],
-    },
+    { text: 'ребёнок' },
+    { text: '(ударение на второй слог)' },
   ],
   [
     { text: 'Символ (ˈ) ставится перед ударным слогом' },
