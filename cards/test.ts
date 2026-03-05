@@ -81,9 +81,9 @@ export const cards: Card[] = [
     { text: 'ударение на второй слог' },
   ],
   [
-    { text: 'Apple', fontWeight: 'bold', fontSize: 26, gapTop: 10 },
-    { text: '/эпл/', fontSize: 16, gapBottom: 20 },
-    { text: '[ˈæpəl]', fontSize: 16 },
+    { text: 'Apple', fontWeight: 'bold', fontSize: 26 },
+    { text: '/эпл/', fontSize: 16, gapTop: 10 },
+    { text: '[ˈæpəl]', fontSize: 16, gapBottom: 10 },
     { text: 'яблоко', fontSize: 18 },
   ],
   [

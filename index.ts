@@ -15,8 +15,8 @@ import notoSansLight from './fonts/notoSansLight';
 // import { cards } from './cards/phonetic';
 import { cards } from './cards/test';
 
-const horizontalAlign: HorizontalAlign = 'left';
-const verticalAlign: VerticalAlign = 'bottom';
+const horizontalAlign: HorizontalAlign = 'center';
+const verticalAlign: VerticalAlign = 'top';
 
 // Document and layout helpers
 function createDocument() {
@@ -71,7 +71,7 @@ function getLayout() {
 // Fonts and spacing defaults
 const DEFAULTS = {
   lineGap: 1,
-  cardPadding: 2,
+  cardPadding: 0,
   fontName: 'Noto Sans',
   fontWeight: 'light' as FontWeight,
   fontSize: 14,
@@ -284,17 +284,20 @@ function renderCard(
     alignedY = y + cardH - totalTextHeight - DEFAULTS.cardPadding;
   }
 
-  let currentY = alignedY + (wrappedLines[0]?.height ?? 0);
+  let currentY = alignedY;
 
-  wrappedLines.forEach((wrappedline: WrappedLine) => {
-    currentY += wrappedline.gapTop || 0;
+  wrappedLines.forEach((wrappedLine: WrappedLine) => {
+    // Apply top gap
+    currentY += wrappedLine.gapTop || 0;
 
+    // Calculate full line width
     let lineWidth = 0;
-    wrappedline.segments.forEach((seg: Segment) => {
+    wrappedLine.segments.forEach((seg: Segment) => {
       setFontStyles(doc, seg);
       lineWidth += doc.getTextWidth(seg.text);
     });
 
+    // Horizontal alignment
     let cursorX: number;
 
     if (horizontalAlign === 'left') {
@@ -305,14 +308,20 @@ function renderCard(
       cursorX = x + cardW - lineWidth - DEFAULTS.cardPadding;
     }
 
-    // let cursorX = x + cardW / 2 - lineWidth / 2;
-    wrappedline.segments.forEach((seg: Segment) => {
+    // Draw text
+    wrappedLine.segments.forEach((seg: Segment) => {
       setFontStyles(doc, seg);
-      doc.text(seg.text, cursorX, currentY, { align: 'left' });
+      doc.text(seg.text, cursorX, currentY + wrappedLine.height, {
+        align: 'left',
+      });
       cursorX += doc.getTextWidth(seg.text);
     });
 
-    currentY += wrappedline.height;
+    // Move down by line height
+    currentY += wrappedLine.height;
+
+    // Apply bottom gap
+    currentY += wrappedLine.gapBottom || 0;
   });
 }
 
