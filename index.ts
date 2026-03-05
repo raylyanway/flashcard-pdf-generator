@@ -15,7 +15,7 @@ import notoSansLight from './fonts/notoSansLight';
 // import { cards } from './cards/phonetic';
 import { cards } from './cards/test';
 
-const horizontalAlign: HorizontalAlign = 'center';
+const horizontalAlign: HorizontalAlign = 'middle';
 const verticalAlign: VerticalAlign = 'top';
 
 // Document and layout helpers
@@ -274,17 +274,15 @@ function renderCard(
   doc.setLineDashPattern([1, 2], 0);
   doc.rect(x, y, cardW, cardH);
 
-  let alignedY: number;
+  let currentY: number;
 
   if (verticalAlign === 'top') {
-    alignedY = y + DEFAULTS.cardPadding;
+    currentY = y + DEFAULTS.cardPadding;
   } else if (verticalAlign === 'middle') {
-    alignedY = y + (cardH - totalTextHeight) / 2;
+    currentY = y + (cardH - totalTextHeight) / 2;
   } else {
-    alignedY = y + cardH - totalTextHeight - DEFAULTS.cardPadding;
+    currentY = y + cardH - totalTextHeight - DEFAULTS.cardPadding;
   }
-
-  let currentY = alignedY;
 
   wrappedLines.forEach((wrappedLine: WrappedLine) => {
     // Apply top gap
@@ -298,23 +296,23 @@ function renderCard(
     });
 
     // Horizontal alignment
-    let cursorX: number;
+    let currentX: number;
 
     if (horizontalAlign === 'left') {
-      cursorX = x + DEFAULTS.cardPadding;
-    } else if (horizontalAlign === 'center') {
-      cursorX = x + (cardW - lineWidth) / 2;
+      currentX = x + DEFAULTS.cardPadding;
+    } else if (horizontalAlign === 'middle') {
+      currentX = x + (cardW - lineWidth) / 2;
     } else {
-      cursorX = x + cardW - lineWidth - DEFAULTS.cardPadding;
+      currentX = x + cardW - lineWidth - DEFAULTS.cardPadding;
     }
 
     // Draw text
     wrappedLine.segments.forEach((seg: Segment) => {
       setFontStyles(doc, seg);
-      doc.text(seg.text, cursorX, currentY + wrappedLine.height, {
+      doc.text(seg.text, currentX, currentY + wrappedLine.height, {
         align: 'left',
       });
-      cursorX += doc.getTextWidth(seg.text);
+      currentX += doc.getTextWidth(seg.text);
     });
 
     // Move down by line height
