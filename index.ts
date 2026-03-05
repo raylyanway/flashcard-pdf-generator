@@ -12,8 +12,8 @@ import type {
 import notoSansBold from './fonts/notoSansBold';
 import notoSansLight from './fonts/notoSansLight';
 
-// import { cards } from './cards/phonetic';
-import { cards } from './cards/test';
+import { cards } from './cards/phonetic';
+// import { cards } from './cards/test';
 
 const horizontalAlign: HorizontalAlign = 'middle';
 const verticalAlign: VerticalAlign = 'top';
@@ -70,8 +70,9 @@ function getLayout() {
 
 // Fonts and spacing defaults
 const DEFAULTS = {
-  lineGap: 1,
-  cardPadding: 0,
+  gapTop: 0,
+  gapBottom: 1,
+  cardPadding: 1,
   fontName: 'Noto Sans',
   fontWeight: 'light' as FontWeight,
   fontSize: 14,
@@ -110,11 +111,12 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
         lineHeight = Math.max(lineHeight, dims.h);
       });
 
-      const gapTop = idx === 0 ? (line.gapTop ?? DEFAULTS.lineGap) : 0;
+      const gapTop = idx === 0 ? (line.gapTop ?? DEFAULTS.gapTop) : 0;
       const gapBottom =
         idx === wrappedSegmentLines.length - 1
-          ? (line.gapBottom ?? DEFAULTS.lineGap)
-          : 0;
+          ? (line.gapBottom ?? DEFAULTS.gapBottom)
+          : // ? (line.gapBottom ?? DEFAULTS.gapBottom)
+            0;
 
       wrappedLines.push({
         segments: segLine,
