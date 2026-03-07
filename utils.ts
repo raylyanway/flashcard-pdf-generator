@@ -319,7 +319,7 @@ function renderCard(
 }
 
 // Main: generate PDF
-function renderCards(cards: Card[]) {
+function renderCards(cards: Card[], filename = 'flashcards.pdf') {
   const doc = createDocument();
   const layout = getLayout();
 
@@ -350,7 +350,7 @@ function renderCards(cards: Card[]) {
     );
   });
 
-  doc.save('flashcards.pdf');
+  doc.save(filename);
 }
 
 export default renderCards;
