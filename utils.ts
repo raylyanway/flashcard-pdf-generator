@@ -319,38 +319,41 @@ function renderCard(
 }
 
 // Main: generate PDF
-function renderCards(cards: Card[], filename = 'flashcards.pdf') {
-  const doc = createDocument();
-  const layout = getLayout();
+function renderCards(cards: Record<string, Card[]>) {
+  Object.entries(cards).forEach(([key, cardList]) => {
+    const doc = createDocument();
+    const layout = getLayout();
+    const filename = `${key}.pdf`;
 
-  cards.forEach((card, i) => {
-    const cardIndexOnPage = i % layout.cardsPerPage;
-    if (i > 0 && cardIndexOnPage === 0) doc.addPage();
+    cardList.forEach((card, i) => {
+      const cardIndexOnPage = i % layout.cardsPerPage;
+      if (i > 0 && cardIndexOnPage === 0) doc.addPage();
 
-    const col = cardIndexOnPage % layout.cols;
-    const row = Math.floor(cardIndexOnPage / layout.cols);
-    const x = layout.marginLeft + col * layout.cardW;
-    const y = layout.marginTop + row * layout.cardH;
+      const col = cardIndexOnPage % layout.cols;
+      const row = Math.floor(cardIndexOnPage / layout.cols);
+      const x = layout.marginLeft + col * layout.cardW;
+      const y = layout.marginTop + row * layout.cardH;
 
-    const { wrappedLines, totalTextHeight } = buildWrappedLines(
-      doc,
-      card,
-      layout.cardW
-    );
-    const trimmed = trimToFit(wrappedLines, totalTextHeight, layout.cardH);
+      const { wrappedLines, totalTextHeight } = buildWrappedLines(
+        doc,
+        card,
+        layout.cardW
+      );
+      const trimmed = trimToFit(wrappedLines, totalTextHeight, layout.cardH);
 
-    renderCard(
-      doc,
-      x,
-      y,
-      layout.cardW,
-      layout.cardH,
-      trimmed.wrappedLines,
-      trimmed.totalTextHeight
-    );
+      renderCard(
+        doc,
+        x,
+        y,
+        layout.cardW,
+        layout.cardH,
+        trimmed.wrappedLines,
+        trimmed.totalTextHeight
+      );
+    });
+
+    doc.save(filename);
   });
-
-  doc.save(filename);
 }
 
 export default renderCards;
