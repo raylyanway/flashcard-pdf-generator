@@ -1,6 +1,6 @@
 import { Card } from '../types';
 
-export const cards: Card[] = [
+export const phoneticCards: Card[] = [
   [
     { text: 'Символ (ˈ) ставится перед ударным слогом', gapBottom: 5 },
     { text: 'море' },

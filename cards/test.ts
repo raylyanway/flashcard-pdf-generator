@@ -17,26 +17,7 @@
 
 import type { Card } from '../types';
 
-export const cards1: Card[] = [
-  [
-    {
-      text: [
-        {
-          text: 'Symbol should be plac',
-        },
-        {
-          text: 'e',
-          fontWeight: 'bold',
-        },
-        {
-          text: 'd',
-        },
-      ],
-    },
-  ],
-];
-
-export const cards: Card[] = [
+export const testCards: Card[] = [
   [
     {
       text: 'Символ (ˈˈˈ) ILilIвится перед ударным слогом ставится перед ударным слогом ставится перед ударным слогом',
