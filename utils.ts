@@ -352,7 +352,7 @@ function renderCards(cards: Record<string, Card[]>) {
       );
     });
 
-    doc.save(filename);
+    doc.save(`./pdfs/${filename}`);
   });
 }
 
