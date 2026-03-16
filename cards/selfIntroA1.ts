@@ -2,128 +2,245 @@ import { Card } from '../types';
 
 export const selfIntroA1: Card[] = [
   [
-    { text: 'меня зовут Илия', gapBottom: 5 },
-    { text: 'мэ кямэ илия' },
+    { text: 'Меня зовут Илия.' },
+    { text: 'Мэ нумеск И́лия.' },
+    { text: 'mə nuˈmesk iˈli.a' },
+    { text: 'Mă numesc Ilia.', fontSize: 20 },
+  ],
+  [
+    { text: 'Мне двадцать пять лет.' },
+    { text: 'Эу ам доуэзе́чь ши чи́нчь де ань.' },
+    { text: 'ew am ˈdo.wə.zet͡ʃ ʃi ˈt͡ʃint͡ʃ de ˈanʲ' },
+    { text: 'Eu am douăzeci și cinci de ani.', fontSize: 20 },
+  ],
+  [
+    { text: 'Я из России.' },
+    { text: 'Эу сунт дин Руси́я.' },
+    { text: 'ew sunt din ruˈsi.a' },
+    { text: 'Eu sunt din Rusia.', fontSize: 20 },
+  ],
+  [
+    { text: 'Я живу в Лос-Анджелесе.' },
+    { text: 'Эу локуи́еск ын Лос Анджелес.' },
+    { text: 'ew loˈkujesk ɨn los anˈdʒeles' },
+    { text: 'Eu locuiesc în Los Angeles.', fontSize: 20 },
+  ],
+  [
+    { text: 'Я студент.' },
+    { text: 'Эу сунт студэ́нт.' },
+    { text: 'ew sunt stuˈdent' },
+    { text: 'Eu sunt student.', fontSize: 20 },
+  ],
+  [
+    { text: 'Я говорю по-румынски.' },
+    { text: 'Эу ворбе́ск ромы́нэ.' },
+    { text: 'ew vorˈbesk roˈmɨ.nə' },
+    { text: 'Eu vorbesc română.', fontSize: 20 },
+  ],
+  [
+    { text: 'Я изучаю румынский.' },
+    { text: 'Эу ынвэ́ц ромы́нэ.' },
+    { text: 'ew ɨnˈvəts roˈmɨ.nə' },
+    { text: 'Eu învăţ română.', fontSize: 20 },
+  ],
+  [
+    { text: 'Я люблю музыку.' },
+    { text: 'Эу иубе́ск му́зика.' },
+    { text: 'ew juˈbesk ˈmuzi.ka' },
+    { text: 'Eu iubesc muzica.', fontSize: 20 },
+  ],
+  [
+    { text: 'Я счастлив.' },
+    { text: 'Эу сунт феричи́т.' },
+    { text: 'ew sunt feˈri.t͡ʃit' },
+    { text: 'Eu sunt fericit.', fontSize: 20 },
+  ],
+];
+
+export const selfIntroGrammarA1: Card[] = [
+  [
     {
       text: [
-        { text: 'mə ' },
-        { text: 'cheamă', fontWeight: 'bold' },
-        { text: ' Ilia' },
+        { text: 'Mă numesc ' },
+        { text: '+ имя', fontWeight: 'bold' },
+        {
+          text: ' (a se numi – возвратный глагол) Eu sunt + имя – не используется',
+        },
       ],
+      gapBottom: 5,
     },
-    { text: 'mă cheamă Ilia', fontSize: 20 },
+    { text: 'Меня зовут Илия.' },
+    { text: 'Мэ нумеск И́лия.' },
+    { text: 'mə nuˈmesk iˈli.a' },
+    { text: 'Mă numesc Ilia.', fontSize: 20 },
   ],
-
   [
-    { text: 'я живу в Америке', gapBottom: 5 },
-    { text: 'йеу трэеск ын америка' },
     {
       text: [
-        { text: 'eu ' },
-        { text: 'trăiesc', fontWeight: 'bold' },
-        { text: ' în America' },
+        { text: 'Eu am ' },
+        { text: '+ число + de ani', fontWeight: 'bold' },
+        { text: ' (am = a avea – иметь) de – обязательный предлог' },
       ],
+      gapBottom: 5,
     },
-    { text: 'eu trăiesc în America', fontSize: 20 },
+    { text: 'Мне двадцать пять лет.' },
+    { text: 'Эу ам доуэзе́чь ши чи́нчь де ань.' },
+    { text: 'ew am ˈdo.wə.zet͡ʃ ʃi ˈt͡ʃint͡ʃ de ˈanʲ' },
+    { text: 'Eu am douăzeci și cinci de ani.', fontSize: 20 },
   ],
-
   [
-    { text: 'я изучаю румынский', gapBottom: 5 },
-    { text: 'йеу ынвэц лимба рымынэ' },
     {
       text: [
-        { text: 'eu ' },
-        { text: 'învăț', fontWeight: 'bold' },
-        { text: ' limba română' },
+        { text: 'Eu sunt din ' },
+        { text: '+ страна', fontWeight: 'bold' },
+        { text: ' (din = из)' },
       ],
+      gapBottom: 5,
     },
-    { text: 'eu învăț limba română', fontSize: 20 },
+    { text: 'Я из России.' },
+    { text: 'Эу сунт дин Руси́я.' },
+    { text: 'ew sunt din ruˈsi.a' },
+    { text: 'Eu sunt din Rusia.', fontSize: 20 },
   ],
-
   [
-    { text: 'я говорю по-русски', gapBottom: 5 },
-    { text: 'йеу ворбеск руштэ' },
     {
       text: [
-        { text: 'eu ' },
-        { text: 'vorbesc', fontWeight: 'bold' },
-        { text: ' rusă' },
+        { text: 'Eu locuiesc în ' },
+        { text: '+ город / страна', fontWeight: 'bold' },
+        { text: ' (în = в) a locui – жить' },
       ],
+      gapBottom: 5,
     },
-    { text: 'eu vorbesc rusă', fontSize: 20 },
+    { text: 'Я живу в Лос-Анджелесе.' },
+    { text: 'Эу локуи́еск ын Лос Анджелес.' },
+    { text: 'ew loˈkujesk ɨn los anˈdʒeles' },
+    { text: 'Eu locuiesc în Los Angeles.', fontSize: 20 },
   ],
-
   [
-    { text: 'я работаю', gapBottom: 5 },
-    { text: 'йеу лукрез' },
-    {
-      text: [{ text: 'eu ' }, { text: 'lucrez', fontWeight: 'bold' }],
-    },
-    { text: 'eu lucrez', fontSize: 20 },
-  ],
-
-  [
-    { text: 'я работаю дома', gapBottom: 5 },
-    { text: 'йеу лукрез акаса' },
     {
       text: [
-        { text: 'eu ' },
-        { text: 'lucrez', fontWeight: 'bold' },
-        { text: ' acasă' },
+        { text: 'Eu sunt ' },
+        { text: '+ профессия / национальность', fontWeight: 'bold' },
+        { text: ' (без артикля)' },
       ],
+      gapBottom: 5,
     },
-    { text: 'eu lucrez acasă', fontSize: 20 },
+    { text: 'Я студент.' },
+    { text: 'Эу сунт студэ́нт.' },
+    { text: 'ew sunt stuˈdent' },
+    { text: 'Eu sunt student.', fontSize: 20 },
   ],
-
   [
-    { text: 'я люблю языки', gapBottom: 5 },
-    { text: 'йеу юбеск лимбь' },
     {
       text: [
-        { text: 'eu ' },
-        { text: 'iubesc', fontWeight: 'bold' },
-        { text: ' limbi' },
+        { text: 'Eu vorbesc ' },
+        { text: '+ язык (без артикля)', fontWeight: 'bold' },
+        { text: ' a vorbi – говорить' },
       ],
+      gapBottom: 5,
     },
-    { text: 'eu iubesc limbi', fontSize: 20 },
+    { text: 'Я говорю по-румынски.' },
+    { text: 'Эу ворбе́ск ромы́нэ.' },
+    { text: 'ew vorˈbesk roˈmɨ.nə' },
+    { text: 'Eu vorbesc română.', fontSize: 20 },
   ],
-
   [
-    { text: 'я читаю книги', gapBottom: 5 },
-    { text: 'йеу читеск кэрць' },
     {
       text: [
-        { text: 'eu ' },
-        { text: 'citesc', fontWeight: 'bold' },
-        { text: ' cărți' },
+        { text: 'Eu învăţ ' },
+        { text: '+ что изучаю', fontWeight: 'bold' },
+        { text: ' (прямой объект) a învăța – учить' },
       ],
+      gapBottom: 5,
     },
-    { text: 'eu citesc cărți', fontSize: 20 },
+    { text: 'Я изучаю румынский.' },
+    { text: 'Эу ынвэ́ц ромы́нэ.' },
+    { text: 'ew ɨnˈvəts roˈmɨ.nə' },
+    { text: 'Eu învăţ română.', fontSize: 20 },
   ],
-
   [
-    { text: 'я хочу говорить по-румынски', gapBottom: 5 },
-    { text: 'йеу вреау сэ ворбеск рымынеште' },
     {
       text: [
-        { text: 'eu ' },
-        { text: 'vreau', fontWeight: 'bold' },
-        { text: ' să vorbesc românește' },
+        { text: 'Eu iubesc ' },
+        { text: '+ что нравится', fontWeight: 'bold' },
+        { text: ' (прямой объект) a iubi – любить' },
       ],
+      gapBottom: 5,
     },
-    { text: 'eu vreau să vorbesc românește', fontSize: 20 },
+    { text: 'Я люблю музыку.' },
+    { text: 'Эу иубе́ск му́зика.' },
+    { text: 'ew juˈbesk ˈmuzi.ka' },
+    { text: 'Eu iubesc muzica.', fontSize: 20 },
   ],
-
   [
-    { text: 'я изучаю румынский каждый день', gapBottom: 5 },
-    { text: 'йеу ынвэц рымынэ ын фиекаре зи' },
     {
       text: [
-        { text: 'eu ' },
-        { text: 'învăț', fontWeight: 'bold' },
-        { text: ' română în fiecare zi' },
+        { text: 'Eu sunt ' },
+        { text: '+ прилагательное', fontWeight: 'bold' },
+        { text: ' (fericit м.р. / fericită ж.р.)' },
       ],
+      gapBottom: 5,
     },
-    { text: 'eu învăț română în fiecare zi', fontSize: 20 },
+    { text: 'Я счастлив.' },
+    { text: 'Эу сунт феричи́т.' },
+    { text: 'ew sunt feˈri.t͡ʃit' },
+    { text: 'Eu sunt fericit.', fontSize: 20 },
+  ],
+];
+
+export const selfIntroWordsA1: Card[] = [
+  [
+    { text: 'студент' },
+    { text: 'студэ́нт' },
+    { text: 'stuˈdent' },
+    { text: 'student', fontSize: 20 },
+  ],
+  [
+    { text: 'годы' },
+    { text: 'ань' },
+    { text: 'anʲ' },
+    { text: 'ani', fontSize: 20 },
+  ],
+  [
+    { text: 'из' },
+    { text: 'дин' },
+    { text: 'din' },
+    { text: 'din', fontSize: 20 },
+  ],
+  [
+    { text: 'живу' },
+    { text: 'локуи́еск' },
+    { text: 'loˈkujesk' },
+    { text: 'locuiesc', fontSize: 20 },
+  ],
+  [
+    { text: 'говорю' },
+    { text: 'ворбе́ск' },
+    { text: 'vorˈbesk' },
+    { text: 'vorbesc', fontSize: 20 },
+  ],
+  [
+    { text: 'изучаю' },
+    { text: 'ынвэ́ц' },
+    { text: 'ɨnˈvəts' },
+    { text: 'învăţ', fontSize: 20 },
+  ],
+  [
+    { text: 'люблю' },
+    { text: 'иубе́ск' },
+    { text: 'juˈbesk' },
+    { text: 'iubesc', fontSize: 20 },
+  ],
+  [
+    { text: 'музыка' },
+    { text: 'му́зика' },
+    { text: 'ˈmuzi.ka' },
+    { text: 'muzica', fontSize: 20 },
+  ],
+  [
+    { text: 'счастлив' },
+    { text: 'феричи́т' },
+    { text: 'feˈri.t͡ʃit' },
+    { text: 'fericit', fontSize: 20 },
   ],
 ];
