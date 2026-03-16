@@ -67,6 +67,8 @@ export const phoneticCards: Card[] = [
       ],
     },
     { text: 'casă', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     { text: 'Символ (ʲ) смягчает согласное', gapBottom: 5 },
     { text: 'плодовые деревья' },
     {
@@ -124,6 +126,8 @@ export const phoneticCards: Card[] = [
     { text: [{ text: 'п' }, { text: 'а', fontWeight: 'bold' }, { text: 'т' }] },
     { text: [{ text: 'p' }, { text: 'a', fontWeight: 'bold' }, { text: 't' }] },
     { text: 'pat', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (i) звучит как (и)',
       gapBottom: 5,
@@ -142,6 +146,8 @@ export const phoneticCards: Card[] = [
     { text: [{ text: 'ф', fontWeight: 'bold' }, { text: 'ок' }] },
     { text: [{ text: 'f', fontWeight: 'bold' }, { text: 'ok' }] },
     { text: 'foc', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (v) звучит как (в)',
       gapBottom: 5,
@@ -162,6 +168,8 @@ export const phoneticCards: Card[] = [
     },
     { text: [{ text: 'l' }, { text: 'u', fontWeight: 'bold' }, { text: 'p' }] },
     { text: 'lup', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (s) звучит как (с)',
       gapBottom: 5,
@@ -241,6 +249,8 @@ export const phoneticCards: Card[] = [
       fontSize: 20,
       gapBottom: 5,
     },
+  ],
+  [
     {
       text: 'Символы (o̯a) это буквы (oa) звучит как (оа)',
       gapBottom: 5,
@@ -271,6 +281,8 @@ export const phoneticCards: Card[] = [
       text: [{ text: 'k' }, { text: 'e', fontWeight: 'bold' }, { text: 'fe' }],
     },
     { text: 'cafe', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     { text: 'Символ (o) звучит как (о)', gapBottom: 5 },
     { text: 'нос' },
     { text: [{ text: 'н' }, { text: 'о', fontWeight: 'bold' }, { text: 'с' }] },
@@ -294,6 +306,8 @@ export const phoneticCards: Card[] = [
       ],
     },
     { text: 'băiat', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     { text: 'Символ (b) звучит как (б)', gapBottom: 5 },
     { text: 'хороший' },
     { text: [{ text: 'б', fontWeight: 'bold' }, { text: 'ун' }] },
@@ -309,6 +323,8 @@ export const phoneticCards: Card[] = [
     { text: [{ text: 'д', fontWeight: 'bold' }, { text: 'ой' }] },
     { text: [{ text: 'd', fontWeight: 'bold' }, { text: 'oj' }] },
     { text: 'doi', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     { text: 'Символ (g) звучит как (г)', gapBottom: 5 },
     { text: 'рот' },
     { text: [{ text: 'г', fontWeight: 'bold' }, { text: 'урэ' }] },
@@ -336,6 +352,8 @@ export const phoneticCards: Card[] = [
       ],
     },
     { text: 'haină', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     { text: 'Символ (j) звучит как (й)', gapBottom: 5 },
     { text: 'они' },
     { text: [{ text: 'й', fontWeight: 'bold' }, { text: 'эй' }] },
@@ -357,6 +375,8 @@ export const phoneticCards: Card[] = [
       ],
     },
     { text: 'lună', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (m) звучит как (м)',
       gapBottom: 5,
@@ -389,6 +409,8 @@ export const phoneticCards: Card[] = [
     { text: [{ text: 'н', fontWeight: 'bold' }, { text: 'ор' }] },
     { text: [{ text: 'n', fontWeight: 'bold' }, { text: 'or' }] },
     { text: 'nor', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     { text: 'Символ (p) звучит как (п)', gapBottom: 5 },
     { text: 'хлеб' },
     { text: [{ text: 'п', fontWeight: 'bold' }, { text: 'ыне' }] },
@@ -410,6 +432,8 @@ export const phoneticCards: Card[] = [
     { text: [{ text: 'р', fontWeight: 'bold' }, { text: 'ыу' }] },
     { text: [{ text: 'r', fontWeight: 'bold' }, { text: 'ɨw' }] },
     { text: 'râu', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     { text: 'Символ (t) звучит как (т)', gapBottom: 5 },
     { text: 'три' },
     { text: [{ text: 'т', fontWeight: 'bold' }, { text: 'рей' }] },
@@ -425,6 +449,8 @@ export const phoneticCards: Card[] = [
     { text: [{ text: 'з', fontWeight: 'bold' }, { text: 'и' }] },
     { text: [{ text: 'z', fontWeight: 'bold' }, { text: 'i' }] },
     { text: 'zi', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (ʃ) это буква (ș) звучит как (ш)',
       gapBottom: 5,
@@ -449,6 +475,8 @@ export const phoneticCards: Card[] = [
     { text: [{ text: 'ж', fontWeight: 'bold' }, { text: 'ок' }] },
     { text: [{ text: 'ʒ', fontWeight: 'bold' }, { text: 'ok' }] },
     { text: 'joc', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (t͡s) это буква (ț) звучит как (ц)',
       gapBottom: 5,
@@ -473,6 +501,8 @@ export const phoneticCards: Card[] = [
     { text: [{ text: 'ч', fontWeight: 'bold' }, { text: 'ер' }] },
     { text: [{ text: 't͡ʃ', fontWeight: 'bold' }, { text: 'er' }] },
     { text: 'cer', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (d͡ʒ) это буква (g) звучит как (дж)',
       gapBottom: 5,
@@ -495,6 +525,8 @@ export const phoneticCards: Card[] = [
       text: [{ text: 'ˈkampi' }, { text: 'ŋ', fontWeight: 'bold' }],
     },
     { text: 'camping', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (ɲ) звучит как (нь)',
       gapBottom: 5,
@@ -529,6 +561,8 @@ export const phoneticCards: Card[] = [
       text: [{ text: 'ʒ' }, { text: 'ɑ̃', fontWeight: 'bold' }, { text: 'r' }],
     },
     { text: 'genre', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (ɛ̃) это носовой звук (эн)',
       gapBottom: 5,
@@ -555,6 +589,8 @@ export const phoneticCards: Card[] = [
       text: [{ text: 'ʃof' }, { text: 'ø', fontWeight: 'bold' }, { text: 'r' }],
     },
     { text: 'șofer', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символ (y) звучит как французское (ю)',
       gapBottom: 5,
@@ -580,7 +616,9 @@ export const phoneticCards: Card[] = [
     {
       text: [{ text: 'w', fontWeight: 'bold' }, { text: 'es.na' }],
     },
-    { text: 'wesna', fontSize: 20, gapBottom: 5, },
+    { text: 'wesna', fontSize: 20, gapBottom: 5 },
+  ],
+  [
     {
       text: 'Символы (e̯a) это буквы (ea) звучит как (я)',
       gapBottom: 5,
