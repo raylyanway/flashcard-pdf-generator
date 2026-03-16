@@ -2,86 +2,83 @@ import { Card } from '../types';
 
 export const selfIntroRulesA1: Card[] = [
   [
-    {
-      text: 'Конструкция "меня зовут": mă + cheamă',
-      gapBottom: 5,
-    },
-    { text: 'меня зовут Илия' },
-    { text: 'мэ кямэ илия' },
-    {
-      text: [
-        { text: 'mă ', fontWeight: 'bold' },
-        { text: 'cheamă ', fontWeight: 'bold' },
-        { text: 'Ilia' },
-      ],
-    },
-    { text: 'mă cheamă Ilia', fontSize: 20 },
+    { text: 'Чтобы сказать своё имя: Ma numesc + имя', gapBottom: 5 },
+    { text: 'ма нумеск + имя' },
+    { text: [{ text: 'Ma numesc', fontWeight: 'bold' }, { text: ' + nume' }] },
+    { text: 'Ma numesc Ilia', fontSize: 20 },
   ],
 
   [
     {
-      text: 'Структура предложения: Подлежащее + глагол',
+      text: 'Для указания места проживания: Locuiesc în + город',
       gapBottom: 5,
     },
-    { text: 'я работаю' },
-    { text: 'йеу лукрез' },
+    { text: 'локуеск ын + город' },
+    {
+      text: [{ text: 'Locuiesc', fontWeight: 'bold' }, { text: ' în + oraș' }],
+    },
+    { text: 'Locuiesc în Vernon', fontSize: 20 },
+  ],
+
+  [
+    { text: 'Настоящее время: Eu + глагол в 1 лице', gapBottom: 5 },
+    { text: 'ев + глагол' },
+    { text: [{ text: 'Eu', fontWeight: 'bold' }, { text: ' + verb' }] },
+    { text: 'Eu lucrez', fontSize: 20 },
+  ],
+
+  [
+    { text: 'Изучаемый язык: Învăț limba + язык', gapBottom: 5 },
+    { text: 'ынвэц лимба + язык' },
+    {
+      text: [{ text: 'Învăț', fontWeight: 'bold' }, { text: ' limba română' }],
+    },
+    { text: 'Învăț limba română', fontSize: 20 },
+  ],
+
+  [
+    { text: 'Выражение симпатии: Iubesc + объект', gapBottom: 5 },
+    { text: 'юбеск + объект' },
+    { text: [{ text: 'Iubesc', fontWeight: 'bold' }, { text: ' muzica' }] },
+    { text: 'Iubesc muzica', fontSize: 20 },
+  ],
+
+  [
+    { text: 'Выражение желания: Vreau + объект / infinitiv', gapBottom: 5 },
+    { text: 'вреау + объект / инфинитив' },
     {
       text: [
-        { text: 'eu ', fontWeight: 'bold' },
-        { text: 'lucrez', fontWeight: 'bold' },
+        { text: 'Vreau', fontWeight: 'bold' },
+        { text: ' cafea / să citesc' },
       ],
     },
-    { text: 'eu lucrez', fontSize: 20 },
+    { text: 'Vreau cafea', fontSize: 20 },
   ],
 
   [
     {
-      text: 'Место: используется предлог "în"',
+      text: 'Регулярные действия: добавляем în fiecare zi (каждый день)',
       gapBottom: 5,
     },
-    { text: 'я живу в Америке' },
-    { text: 'йеу трэеск ын америка' },
-    {
-      text: [
-        { text: 'eu trăiesc ' },
-        { text: 'în', fontWeight: 'bold' },
-        { text: ' America' },
-      ],
-    },
-    { text: 'eu trăiesc în America', fontSize: 20 },
+    { text: 'ин фиекаре зи' },
+    { text: [{ text: 'în fiecare zi', fontWeight: 'bold' }] },
+    { text: 'în fiecare zi', fontSize: 20 },
+  ],
+
+  [
+    { text: 'Объединение действий: используем și (и)', gapBottom: 5 },
+    { text: 'ши' },
+    { text: [{ text: 'și', fontWeight: 'bold' }] },
+    { text: 'și', fontSize: 20 },
   ],
 
   [
     {
-      text: 'Язык после глагола: vorbesc + язык',
+      text: 'Указание времени суток: dimineața (утром), seara (вечером)',
       gapBottom: 5,
     },
-    { text: 'я говорю по-русски' },
-    { text: 'йеу ворбеск руштэ' },
-    {
-      text: [
-        { text: 'eu ' },
-        { text: 'vorbesc', fontWeight: 'bold' },
-        { text: ' rusă' },
-      ],
-    },
-    { text: 'eu vorbesc rusă', fontSize: 20 },
-  ],
-
-  [
-    {
-      text: 'Если два глагола — используется "să"',
-      gapBottom: 5,
-    },
-    { text: 'я хочу говорить' },
-    { text: 'йеу вреау сэ ворбеск' },
-    {
-      text: [
-        { text: 'eu vreau ' },
-        { text: 'să', fontWeight: 'bold' },
-        { text: ' vorbesc' },
-      ],
-    },
-    { text: 'eu vreau să vorbesc', fontSize: 20 },
+    { text: 'диминеаца / сэра' },
+    { text: [{ text: 'dimineața', fontWeight: 'bold' }, { text: ' / seara' }] },
+    { text: 'dimineața / seara', fontSize: 20 },
   ],
 ];
