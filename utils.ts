@@ -19,7 +19,7 @@ const DEFAULTS = {
   fontName: 'Noto Sans',
   fontWeight: 'light' as FontWeight,
   fontSize: 14,
-  verticalAlign: 'top' as VerticalAlign,
+  verticalAlign: 'middle' as VerticalAlign,
   horizontalAlign: 'middle' as HorizontalAlign,
 };
 
