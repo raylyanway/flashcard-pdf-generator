@@ -336,3 +336,179 @@ export const grammarA1Part2: Card[] = [
     { text: 'Eu nu am maşină.', fontSize: 20 },
   ],
 ];
+
+export const grammarA1Part3: Card[] = [
+  // === Possessive adjectives (rules) ===
+  [
+    { text: 'мой / моя (муж./жен.)' },
+    { text: 'меу / мя' },
+    { text: 'mew / mʲa' },
+    { text: 'meu / mea', fontSize: 20 },
+  ],
+  [
+    { text: 'твой / твоя' },
+    { text: 'тэу / тя' },
+    { text: 'təw / tʲa' },
+    { text: 'tău / ta', fontSize: 20 },
+  ],
+  [
+    { text: 'его / её / свой (муж./жен.)' },
+    { text: 'сэу / са' },
+    { text: 'səw / sa' },
+    { text: 'său / sa', fontSize: 20 },
+  ],
+  [
+    { text: 'наш / наша' },
+    { text: 'ностру / ноастрэ' },
+    { text: 'ˈnos.tru / ˈno.as.trə' },
+    { text: 'nostru / noastră', fontSize: 20 },
+  ],
+
+  // === Negation rules ===
+  [
+    { text: 'отрицание с глаголом' },
+    { text: 'ну + глагол' },
+    { text: 'nu' },
+    { text: 'nu + verb', fontSize: 20 },
+  ],
+  [
+    { text: 'не есть' },
+    { text: 'ну есте' },
+    { text: 'nu ˈjes.te' },
+    { text: 'nu este', fontSize: 20 },
+  ],
+  [
+    { text: 'у меня нет' },
+    { text: 'ну ам' },
+    { text: 'nu am' },
+    { text: 'nu am', fontSize: 20 },
+  ],
+
+  // === Simple questions ===
+  [
+    { text: 'вопросы да/нет (инверсия)' },
+    { text: 'глагол + подлежащее?' },
+    { text: '' },
+    { text: 'verb + subject?', fontSize: 20 },
+  ],
+  [
+    { text: 'кто?' },
+    { text: 'чине?' },
+    { text: 'ˈt͡ʃi.ne' },
+    { text: 'Cine?', fontSize: 20 },
+  ],
+  [
+    { text: 'что?' },
+    { text: 'че?' },
+    { text: 't͡ʃe' },
+    { text: 'Ce?', fontSize: 20 },
+  ],
+  [
+    { text: 'где?' },
+    { text: 'унде?' },
+    { text: 'ˈun.de' },
+    { text: 'Unde?', fontSize: 20 },
+  ],
+  [
+    { text: 'как?' },
+    { text: 'кум?' },
+    { text: 'kum' },
+    { text: 'Cum?', fontSize: 20 },
+  ],
+
+  // === Examples: possessives ===
+  [
+    { text: 'мой друг' },
+    { text: 'прие́тенул меу' },
+    { text: 'priˈje.te.nul mew' },
+    { text: 'prietenul meu', fontSize: 20 },
+  ],
+  [
+    { text: 'моя сестра' },
+    { text: 'со́ра мя' },
+    { text: 'ˈso.rə mʲa' },
+    { text: 'sora mea', fontSize: 20 },
+  ],
+  [
+    { text: 'твой дом' },
+    { text: 'каса та' },
+    { text: 'ˈka.sa ta' },
+    { text: 'casa ta', fontSize: 20 },
+  ],
+  [
+    { text: 'его имя' },
+    { text: 'ну́меле сэу' },
+    { text: 'ˈnu.me.le səw' },
+    { text: 'numele său', fontSize: 20 },
+  ],
+  [
+    { text: 'наш город' },
+    { text: 'о́рашул ностру' },
+    { text: 'ˈo.ra.ʃul ˈnos.tru' },
+    { text: 'orașul nostru', fontSize: 20 },
+  ],
+
+  // === Examples: negation ===
+  [
+    { text: 'Я не из России.' },
+    { text: 'эу ну сунт дин Руси́я' },
+    { text: 'ew nu sunt din ruˈsi.a' },
+    { text: 'Eu nu sunt din Rusia.', fontSize: 20 },
+  ],
+  [
+    { text: 'Это не студент.' },
+    { text: 'аста ну есте студэ́нт' },
+    { text: 'ˈas.ta nu ˈjes.te stuˈdent' },
+    { text: 'Asta nu este student.', fontSize: 20 },
+  ],
+  [
+    { text: 'У меня нет машины.' },
+    { text: 'эу ну ам машинэ' },
+    { text: 'ew nu am maˈʃi.nə' },
+    { text: 'Eu nu am maşină.', fontSize: 20 },
+  ],
+
+  // === Examples: questions ===
+  [
+    { text: 'Ты студент?' },
+    { text: 'ту эшть студэ́нт?' },
+    { text: 'tu eʃtʲ stuˈdent' },
+    { text: 'Tu ești student?', fontSize: 20 },
+  ],
+  [
+    { text: 'У тебя есть брат?' },
+    { text: 'ту ай фра́те?' },
+    { text: 'tu aj ˈfra.te' },
+    { text: 'Tu ai frate?', fontSize: 20 },
+  ],
+  [
+    { text: 'Кто ты?' },
+    { text: 'чине эшть ту?' },
+    { text: 'ˈt͡ʃi.ne eʃtʲ tu' },
+    { text: 'Cine ești tu?', fontSize: 20 },
+  ],
+  [
+    { text: 'Что это?' },
+    { text: 'че аста?' },
+    { text: 't͡ʃe ˈas.ta' },
+    { text: 'Ce este asta?', fontSize: 20 },
+  ],
+  [
+    { text: 'Где ты живёшь?' },
+    { text: 'унде локуи́ешть?' },
+    { text: 'ˈun.de loˈkuj.eʃtʲ' },
+    { text: 'Unde locuiești?', fontSize: 20 },
+  ],
+  [
+    { text: 'Как тебя зовут?' },
+    { text: 'кум те ну́мешть?' },
+    { text: 'kum te ˈnu.meʃtʲ' },
+    { text: 'Cum te numești?', fontSize: 20 },
+  ],
+  [
+    { text: 'У него есть сестра?' },
+    { text: 'эл а́ре со́рэ?' },
+    { text: 'jel ˈa.re ˈso.rə' },
+    { text: 'El are soră?', fontSize: 20 },
+  ],
+];
