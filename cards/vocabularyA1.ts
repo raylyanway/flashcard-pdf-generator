@@ -287,3 +287,177 @@ export const numbersA1: Card[] = [
     { text: 'Câți ani ai?', fontSize: 20 },
   ],
 ];
+
+export const ordinalNumbersA1: Card[] = [
+  // === Pattern explanation ===
+  [
+    { text: 'порядковые числительные (муж. род)' },
+    { text: 'ал … леа' },
+    { text: 'al … ˈle̯a' },
+    { text: 'al …lea', fontSize: 20 },
+  ],
+  [
+    { text: 'порядковые числительные (жен. род)' },
+    { text: 'а … а' },
+    { text: 'a … a' },
+    { text: 'a …a', fontSize: 20 },
+  ],
+  [
+    { text: 'первый / первая (особый случай)' },
+    { text: 'примул / прима' },
+    { text: 'ˈpri.mul / ˈpri.ma' },
+    { text: 'primul / prima', fontSize: 20 },
+  ],
+
+  // 2st–5th
+  [
+    { text: 'второй / вторая' },
+    { text: 'ал до́йля / а доуа' },
+    { text: 'al ˈdoj.lʲa / a ˈdo.wa' },
+    { text: 'al doilea / a doua', fontSize: 20 },
+  ],
+  [
+    { text: 'третий / третья' },
+    { text: 'ал тре́йля / а трея' },
+    { text: 'al ˈtrej.lʲa / a ˈtre.ja' },
+    { text: 'al treilea / a treia', fontSize: 20 },
+  ],
+  [
+    { text: 'четвёртый / четвёртая' },
+    { text: 'ал патру́ля / а патра' },
+    { text: 'al paˈtru.lʲa / a ˈpa.tra' },
+    { text: 'al patrulea / a patra', fontSize: 20 },
+  ],
+  [
+    { text: 'пятый / пятая' },
+    { text: 'ал чинчи́ля / а чинчя' },
+    { text: 'al t͡ʃinˈt͡ʃi.lʲa / a ˈt͡ʃin.t͡ʃʲa' },
+    { text: 'al cincilea / a cincea', fontSize: 20 },
+  ],
+
+  // 6th–10th
+  [
+    { text: 'шестой / шестая' },
+    { text: 'ал шасе́ля / а шасеа' },
+    { text: 'al ʃaˈse.lʲa / a ˈʃa.se̯a' },
+    { text: 'al șaselea / a șasea', fontSize: 20 },
+  ],
+  [
+    { text: 'седьмой / седьмая' },
+    { text: 'ал шапте́ля / а шаптя' },
+    { text: 'al ʃapˈte.lʲa / a ˈʃap.te̯a' },
+    { text: 'al șaptelea / a șaptea', fontSize: 20 },
+  ],
+  [
+    { text: 'восьмой / восьмая' },
+    { text: 'ал опту́ля / а опта' },
+    { text: 'al opˈtu.lʲa / a ˈop.ta' },
+    { text: 'al optulea / a opta', fontSize: 20 },
+  ],
+  [
+    { text: 'девятый / девятая' },
+    { text: 'ал ноуэ́ля / а ноуа' },
+    { text: 'al noˈwə.lʲa / a ˈno.wa' },
+    { text: 'al nouălea / a noua', fontSize: 20 },
+  ],
+  [
+    { text: 'десятый / десятая' },
+    { text: 'ал зе́челя / а зеча' },
+    { text: 'al ˈze.t͡ʃe.lʲa / a ˈze.t͡ʃa' },
+    { text: 'al zecelea / a zecea', fontSize: 20 },
+  ],
+
+  // 11th–15th (pattern continuation)
+  [
+    { text: 'одиннадцатый / -ая' },
+    { text: 'ал унспрезе́челя / а унспрезеча' },
+    { text: 'al un.spreˈze.t͡ʃe.lʲa / a un.spreˈze.t͡ʃa' },
+    { text: 'al unsprezecelea / a unsprezecea', fontSize: 20 },
+  ],
+  [
+    { text: 'двенадцатый / -ая' },
+    { text: 'ал дойспрезе́челя / а дойспрезеча' },
+    { text: 'al doj.spreˈze.t͡ʃe.lʲa / a doj.spreˈze.t͡ʃa' },
+    { text: 'al doisprezecelea / a doisprezecea', fontSize: 20 },
+  ],
+  [
+    { text: 'тринадцатый / -ая' },
+    { text: 'ал трейспрезе́челя / а трейспрезеча' },
+    { text: 'al trej.spreˈze.t͡ʃe.lʲa / a trej.spreˈze.t͡ʃa' },
+    { text: 'al treisprezecelea / a treisprezecea', fontSize: 20 },
+  ],
+  [
+    { text: 'четырнадцатый / -ая' },
+    { text: 'ал патруспрезе́челя / а патруспрезеча' },
+    { text: 'al pa.tru.spreˈze.t͡ʃe.lʲa / a pa.tru.spreˈze.t͡ʃa' },
+    { text: 'al patrusprezecelea / a patrusprezecea', fontSize: 20 },
+  ],
+  [
+    { text: 'пятнадцатый / -ая' },
+    { text: 'ал чинчиспрезе́челя / а чинчиспрезеча' },
+    { text: 'al t͡ʃin.t͡ʃi.spreˈze.t͡ʃe.lʲa / a t͡ʃin.t͡ʃi.spreˈze.t͡ʃa' },
+    { text: 'al cincisprezecelea / a cincisprezecea', fontSize: 20 },
+  ],
+
+  // Practical examples (A1 self-intro useful)
+  [
+    { text: 'Я первый студент.' },
+    { text: 'эу сунт примул студэ́нт' },
+    { text: 'ew sunt ˈpri.mul stuˈdent' },
+    { text: 'Eu sunt primul student.', fontSize: 20 },
+  ],
+  [
+    { text: 'Мой второй друг' },
+    { text: 'прие́тенул ал до́йля меу' },
+    { text: 'priˈje.te.nul al ˈdoj.lʲa mew' },
+    { text: 'Prietenul al doilea meu', fontSize: 20 },
+  ],
+  [
+    { text: 'Третья сестра' },
+    { text: 'а тре́я со́рэ' },
+    { text: 'a ˈtre.ja ˈso.rə' },
+    { text: 'a treia soră', fontSize: 20 },
+  ],
+  [
+    { text: 'Я живу на пятом этаже.' },
+    { text: 'эу локуи́еск ла ета́жул ал чинчи́ля' },
+    { text: 'ew loˈkujesk la eˈta.ʒul al t͡ʃinˈt͡ʃi.lʲa' },
+    { text: 'Eu locuiesc la etajul al cincilea.', fontSize: 20 },
+  ],
+  [
+    { text: 'Первое января' },
+    { text: 'прима януа́рие' },
+    { text: 'ˈpri.ma ja.nuˈa.ri.e' },
+    { text: 'prima ianuarie', fontSize: 20 },
+  ],
+  [
+    { text: 'Десятый этаж' },
+    { text: 'ета́жул ал зе́челя' },
+    { text: 'eˈta.ʒul al ˈze.t͡ʃe.lʲa' },
+    { text: 'etajul al zecelea', fontSize: 20 },
+  ],
+  [
+    { text: 'Второй раз' },
+    { text: 'а доуа оа́ра' },
+    { text: 'a ˈdo.wa ˈwa.ra' },
+    { text: 'a doua oară', fontSize: 20 },
+  ],
+  [
+    { text: 'Пятый день' },
+    { text: 'а чинчя зи' },
+    { text: 'a ˈt͡ʃin.t͡ʃʲa zi' },
+    { text: 'a cincea zi', fontSize: 20 },
+  ],
+  [
+    { text: 'Первый раз' },
+    { text: 'прима оа́ра' },
+    { text: 'ˈpri.ma ˈwa.ra' },
+    { text: 'prima oară', fontSize: 20 },
+  ],
+  [
+    { text: 'Моя первая машина' },
+    { text: 'машина мя прима' },
+    { text: 'maˈʃi.na mʲa ˈpri.ma' },
+    { text: 'Maşina mea prima', fontSize: 20 },
+  ],
+];
