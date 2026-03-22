@@ -14,6 +14,7 @@ export interface Line {
   fontSize?: number;
   gapTop?: number;
   gapBottom?: number;
+  pinTop?: boolean;
 }
 
 export type Card = Line[];

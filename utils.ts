@@ -88,9 +88,12 @@ function setFontStyles(
 
 // Build wrapped lines for a single card
 function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
-  const wrappedLines: WrappedLine[] = [];
-  let totalTextHeight = 0;
-  // 2mm padding on each side
+  const topLines: WrappedLine[] = [];
+  const normalLines: WrappedLine[] = [];
+
+  let topHeight = 0;
+  let normalHeight = 0;
+
   const maxWidth = cardW - DEFAULTS.cardPadding * 2;
 
   card.forEach((line) => {
@@ -99,6 +102,7 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
 
     wrappedSegmentLines.forEach((segLine, idx) => {
       let lineHeight = 0;
+
       segLine.forEach((seg) => {
         setFontStyles(doc, seg);
         const dims = doc.getTextDimensions(seg.text);
@@ -111,17 +115,29 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
           ? (line.gapBottom ?? DEFAULTS.gapBottom)
           : 0;
 
-      wrappedLines.push({
+      const wrappedLine = {
         segments: segLine,
         height: lineHeight,
         gapTop,
         gapBottom,
-      });
-      totalTextHeight += lineHeight + gapTop + gapBottom;
+      };
+
+      if (line.pinTop) {
+        topLines.push(wrappedLine);
+        topHeight += lineHeight + gapTop + gapBottom;
+      } else {
+        normalLines.push(wrappedLine);
+        normalHeight += lineHeight + gapTop + gapBottom;
+      }
     });
   });
 
-  return { wrappedLines, totalTextHeight };
+  return {
+    topLines,
+    normalLines,
+    topHeight,
+    normalHeight,
+  };
 }
 
 function buildSegmentsForLine(line: Line): Segment[] {
@@ -240,21 +256,42 @@ function wrapSegments(doc: jsPDF, segments: Segment[], maxWidth: number) {
   return wrapped;
 }
 
-function trimToFit(
-  wrappedLines: WrappedLine[],
-  totalTextHeight: number,
+function trimToFitSplit(
+  topLines: WrappedLine[],
+  normalLines: WrappedLine[],
+  topHeight: number,
+  normalHeight: number,
   cardH: number
 ) {
   const maxTextHeight = cardH - DEFAULTS.cardPadding * 2;
 
-  while (totalTextHeight > maxTextHeight && wrappedLines.length) {
-    const removed = wrappedLines.pop();
+  // 🔴 If top content alone overflows → we must trim it too (rare but safe)
+  while (topHeight > maxTextHeight && topLines.length) {
+    const removed = topLines.pop();
     if (!removed) break;
-    totalTextHeight -=
+
+    topHeight -=
       removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
   }
 
-  return { wrappedLines, totalTextHeight };
+  // Remaining space for normal lines
+  const remainingHeight = maxTextHeight - topHeight;
+
+  // 🟡 Trim normal lines first
+  while (normalHeight > remainingHeight && normalLines.length) {
+    const removed = normalLines.pop();
+    if (!removed) break;
+
+    normalHeight -=
+      removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
+  }
+
+  return {
+    topLines,
+    normalLines,
+    topHeight,
+    normalHeight,
+  };
 }
 
 function renderCard(
@@ -263,58 +300,82 @@ function renderCard(
   y: number,
   cardW: number,
   cardH: number,
-  wrappedLines: WrappedLine[],
-  totalTextHeight: number
+  topLines: WrappedLine[],
+  normalLines: WrappedLine[],
+  topHeight: number,
+  normalHeight: number
 ) {
   doc.setLineDashPattern([1, 2], 0);
   doc.rect(x, y, cardW, cardH);
 
-  let currentY: number;
+  const padding = DEFAULTS.cardPadding;
 
-  if (DEFAULTS.verticalAlign === 'top') {
-    currentY = y + DEFAULTS.cardPadding;
-  } else if (DEFAULTS.verticalAlign === 'middle') {
-    currentY = y + (cardH - totalTextHeight) / 2;
-  } else {
-    currentY = y + cardH - totalTextHeight - DEFAULTS.cardPadding;
-  }
+  // 🔹 1. Render TOP pinned lines
+  let topY = y + padding;
 
-  wrappedLines.forEach((wrappedLine: WrappedLine) => {
-    // Apply top gap
-    currentY += wrappedLine.gapTop || 0;
+  topLines.forEach((line) => {
+    topY += line.gapTop || 0;
 
-    // Calculate full line width
     let lineWidth = 0;
-    wrappedLine.segments.forEach((seg: Segment) => {
+    line.segments.forEach((seg) => {
       setFontStyles(doc, seg);
       lineWidth += doc.getTextWidth(seg.text);
     });
 
-    // Horizontal alignment
-    let currentX: number;
+    let currentX =
+      DEFAULTS.horizontalAlign === 'left'
+        ? x + padding
+        : DEFAULTS.horizontalAlign === 'middle'
+          ? x + (cardW - lineWidth) / 2
+          : x + cardW - lineWidth - padding;
 
-    if (DEFAULTS.horizontalAlign === 'left') {
-      currentX = x + DEFAULTS.cardPadding;
-    } else if (DEFAULTS.horizontalAlign === 'middle') {
-      currentX = x + (cardW - lineWidth) / 2;
-    } else {
-      currentX = x + cardW - lineWidth - DEFAULTS.cardPadding;
-    }
-
-    // Draw text
-    wrappedLine.segments.forEach((seg: Segment) => {
+    line.segments.forEach((seg) => {
       setFontStyles(doc, seg);
-      doc.text(seg.text, currentX, currentY + wrappedLine.height, {
-        align: 'left',
-      });
+      doc.text(seg.text, currentX, topY + line.height);
       currentX += doc.getTextWidth(seg.text);
     });
 
-    // Move down by line height
-    currentY += wrappedLine.height;
+    topY += line.height + (line.gapBottom || 0);
+  });
 
-    // Apply bottom gap
-    currentY += wrappedLine.gapBottom || 0;
+  // 🔹 2. Render NORMAL lines (existing behavior, but shifted down)
+  let startY: number;
+
+  const availableHeight = cardH - topHeight - padding * 2;
+
+  if (DEFAULTS.verticalAlign === 'top') {
+    startY = y + padding + topHeight;
+  } else if (DEFAULTS.verticalAlign === 'middle') {
+    startY = y + padding + topHeight + (availableHeight - normalHeight) / 2;
+  } else {
+    startY = y + cardH - normalHeight - padding;
+  }
+
+  let currentY = startY;
+
+  normalLines.forEach((line) => {
+    currentY += line.gapTop || 0;
+
+    let lineWidth = 0;
+    line.segments.forEach((seg) => {
+      setFontStyles(doc, seg);
+      lineWidth += doc.getTextWidth(seg.text);
+    });
+
+    let currentX =
+      DEFAULTS.horizontalAlign === 'left'
+        ? x + padding
+        : DEFAULTS.horizontalAlign === 'middle'
+          ? x + (cardW - lineWidth) / 2
+          : x + cardW - lineWidth - padding;
+
+    line.segments.forEach((seg) => {
+      setFontStyles(doc, seg);
+      doc.text(seg.text, currentX, currentY + line.height);
+      currentX += doc.getTextWidth(seg.text);
+    });
+
+    currentY += line.height + (line.gapBottom || 0);
   });
 }
 
@@ -334,12 +395,15 @@ function renderCards(cards: Record<string, Card[]>) {
       const x = layout.marginLeft + col * layout.cardW;
       const y = layout.marginTop + row * layout.cardH;
 
-      const { wrappedLines, totalTextHeight } = buildWrappedLines(
-        doc,
-        card,
-        layout.cardW
+      const { topLines, normalLines, topHeight, normalHeight } =
+        buildWrappedLines(doc, card, layout.cardW);
+      const trimmed = trimToFitSplit(
+        topLines,
+        normalLines,
+        topHeight,
+        normalHeight,
+        layout.cardH
       );
-      const trimmed = trimToFit(wrappedLines, totalTextHeight, layout.cardH);
 
       renderCard(
         doc,
@@ -347,8 +411,10 @@ function renderCards(cards: Record<string, Card[]>) {
         y,
         layout.cardW,
         layout.cardH,
-        trimmed.wrappedLines,
-        trimmed.totalTextHeight
+        trimmed.topLines,
+        trimmed.normalLines,
+        trimmed.topHeight,
+        trimmed.normalHeight
       );
     });
 
