@@ -461,3 +461,346 @@ export const ordinalNumbersA1: Card[] = [
     { text: 'Maşina mea prima', fontSize: 20 },
   ],
 ];
+
+export const familyA1: Card[] = [
+  // Core immediate family
+  [
+    { text: 'семья' },
+    { text: 'фами́лие' },
+    { text: 'faˈmi.li.e' },
+    { text: 'familie', fontSize: 20 },
+  ],
+  [
+    { text: 'мама' },
+    { text: 'ма́мэ' },
+    { text: 'ˈma.mə' },
+    { text: 'mamă', fontSize: 20 },
+  ],
+  [
+    { text: 'папа' },
+    { text: 'та́тэ' },
+    { text: 'ˈta.tə' },
+    { text: 'tată', fontSize: 20 },
+  ],
+  [
+    { text: 'брат' },
+    { text: 'фра́те' },
+    { text: 'ˈfra.te' },
+    { text: 'frate', fontSize: 20 },
+  ],
+  [
+    { text: 'сестра' },
+    { text: 'со́рэ' },
+    { text: 'ˈso.rə' },
+    { text: 'soră', fontSize: 20 },
+  ],
+  [
+    { text: 'сын' },
+    { text: 'фиу' },
+    { text: 'fiw' },
+    { text: 'fiu', fontSize: 20 },
+  ],
+  [
+    { text: 'дочь' },
+    { text: 'фи́кэ' },
+    { text: 'ˈfi.kə' },
+    { text: 'fiică', fontSize: 20 },
+  ],
+
+  // Grandparents & others
+  [
+    { text: 'бабушка' },
+    { text: 'бу́никэ' },
+    { text: 'ˈbu.ni.kə' },
+    { text: 'bunică', fontSize: 20 },
+  ],
+  [
+    { text: 'дедушка' },
+    { text: 'бу́ник' },
+    { text: 'ˈbu.nik' },
+    { text: 'bunic', fontSize: 20 },
+  ],
+  [
+    { text: 'дядя' },
+    { text: 'ун́кю' },
+    { text: 'ˈun.ku' },
+    { text: 'unchi', fontSize: 20 },
+  ],
+  [
+    { text: 'тётя' },
+    { text: 'ма́тэ' },
+    { text: 'ˈma.tə' },
+    { text: 'mătușă', fontSize: 20 },
+  ],
+
+  // In-laws & spouse
+  [
+    { text: 'муж' },
+    { text: 'со́ц' },
+    { text: 'sot͡s' },
+    { text: 'soț', fontSize: 20 },
+  ],
+  [
+    { text: 'жена' },
+    { text: 'соа́цэ' },
+    { text: 'so̯a.t͡sə' },
+    { text: 'soție', fontSize: 20 },
+  ],
+  [
+    { text: 'свёкор / тесть' },
+    { text: 'со́кру' },
+    { text: 'ˈso.kru' },
+    { text: 'socru', fontSize: 20 },
+  ],
+  [
+    { text: 'свекровь / тёща' },
+    { text: 'со́акрэ' },
+    { text: 'ˈso̯a.krə' },
+    { text: 'soacră', fontSize: 20 },
+  ],
+
+  // Examples with possessives & phrases
+  [
+    { text: 'моя мама' },
+    { text: 'ма́мэ мя' },
+    { text: 'ˈma.mə mʲa' },
+    { text: 'mama mea', fontSize: 20 },
+  ],
+  [
+    { text: 'мой папа' },
+    { text: 'та́тэ меу' },
+    { text: 'ˈta.tə mew' },
+    { text: 'tata meu', fontSize: 20 },
+  ],
+  [
+    { text: 'мой брат' },
+    { text: 'фра́теле меу' },
+    { text: 'ˈfra.te.le mew' },
+    { text: 'fratele meu', fontSize: 20 },
+  ],
+  [
+    { text: 'моя сестра' },
+    { text: 'со́ра мя' },
+    { text: 'ˈso.rə mʲa' },
+    { text: 'sora mea', fontSize: 20 },
+  ],
+  [
+    { text: 'мой дедушка' },
+    { text: 'бу́никул меу' },
+    { text: 'ˈbu.ni.kul mew' },
+    { text: 'bunicul meu', fontSize: 20 },
+  ],
+  [
+    { text: 'моя бабушка' },
+    { text: 'бу́ника мя' },
+    { text: 'ˈbu.ni.ka mʲa' },
+    { text: 'bunica mea', fontSize: 20 },
+  ],
+  [
+    { text: 'У меня есть брат.' },
+    { text: 'эу ам ун фра́те' },
+    { text: 'ew am un ˈfra.te' },
+    { text: 'Eu am un frate.', fontSize: 20 },
+  ],
+  [
+    { text: 'У меня есть сестра.' },
+    { text: 'эу ам о со́рэ' },
+    { text: 'ew am o ˈso.rə' },
+    { text: 'Eu am o soră.', fontSize: 20 },
+  ],
+  [
+    { text: 'Это моя семья.' },
+    { text: 'аста есте фами́лия мя' },
+    { text: 'ˈas.ta ˈjes.te faˈmi.li.a mʲa' },
+    { text: 'Asta este familia mea.', fontSize: 20 },
+  ],
+  [
+    { text: 'У меня большая семья.' },
+    { text: 'эу ам о фами́лие ма́ре' },
+    { text: 'ew am o faˈmi.li.e ˈma.re' },
+    { text: 'Eu am o familie mare.', fontSize: 20 },
+  ],
+  [
+    { text: 'Мои родители' },
+    { text: 'пэрин́ций мей' },
+    { text: 'pəˈrin.tsʲj mej' },
+    { text: 'părinții mei', fontSize: 20 },
+  ],
+  [
+    { text: 'Мои дети' },
+    { text: 'ко́пий мей' },
+    { text: 'ˈko.pij mej' },
+    { text: 'copiii mei', fontSize: 20 },
+  ],
+];
+
+export const colorsA1: Card[] = [
+  // Basic colors
+  [
+    { text: 'Title (always top)', pinTop: true },
+    { text: 'белый' },
+    { text: 'альб' },
+    { text: 'alb' },
+    { text: 'alb', fontSize: 20 },
+  ],
+  [
+    { text: 'чёрный' },
+    { text: 'негру' },
+    { text: 'ˈne.gru' },
+    { text: 'negru', fontSize: 20 },
+  ],
+  [
+    { text: 'красный' },
+    { text: 'ро́шу' },
+    { text: 'ˈro.ʃu' },
+    { text: 'roșu', fontSize: 20 },
+  ],
+  [
+    { text: 'жёлтый' },
+    { text: 'га́лбен' },
+    { text: 'ˈɡal.ben' },
+    { text: 'galben', fontSize: 20 },
+  ],
+  [
+    { text: 'зелёный' },
+    { text: 'ве́рде' },
+    { text: 'ˈver.de' },
+    { text: 'verde', fontSize: 20 },
+  ],
+  [
+    { text: 'синий' },
+    { text: 'алба́стру' },
+    { text: 'alˈbas.tru' },
+    { text: 'albastru', fontSize: 20 },
+  ],
+  [
+    { text: 'оранжевый' },
+    { text: 'порто́калиу' },
+    { text: 'por.toˈka.li.u' },
+    { text: 'portocaliu', fontSize: 20 },
+  ],
+  [
+    { text: 'коричневый' },
+    { text: 'ма́ру' },
+    { text: 'ˈma.ru' },
+    { text: 'maro', fontSize: 20 },
+  ],
+  [
+    { text: 'серый' },
+    { text: 'гри' },
+    { text: 'ɡri' },
+    { text: 'gri', fontSize: 20 },
+  ],
+  [
+    { text: 'розовый' },
+    { text: 'роз' },
+    { text: 'roz' },
+    { text: 'roz', fontSize: 20 },
+  ],
+
+  // Examples: color + noun (agreement)
+  [
+    { text: 'белая машина' },
+    { text: 'маши́нэ албэ' },
+    { text: 'maˈʃi.nə ˈal.bə' },
+    { text: 'maşină albă', fontSize: 20 },
+  ],
+  [
+    { text: 'чёрный кот' },
+    { text: 'писи́к негру' },
+    { text: 'piˈsik ˈne.gru' },
+    { text: 'pisic negru', fontSize: 20 },
+  ],
+  [
+    { text: 'красное яблоко' },
+    { text: 'мэр ро́шу' },
+    { text: 'mər ˈro.ʃu' },
+    { text: 'măr roșu', fontSize: 20 },
+  ],
+  [
+    { text: 'жёлтый цветок' },
+    { text: 'флоа́ре га́лбенэ' },
+    { text: 'ˈflo̯a.re ˈɡal.bə.nə' },
+    { text: 'floare galbenă', fontSize: 20 },
+  ],
+  [
+    { text: 'зелёный лес' },
+    { text: 'пэду́ре ве́рде' },
+    { text: 'pəˈdu.re ˈver.de' },
+    { text: 'pădure verde', fontSize: 20 },
+  ],
+  [
+    { text: 'синий дом' },
+    { text: 'касэ алба́стрэ' },
+    { text: 'ˈka.sə alˈbas.trə' },
+    { text: 'casă albastră', fontSize: 20 },
+  ],
+  [
+    { text: 'оранжевый апельсин' },
+    { text: 'портока́лэ порто́калие' },
+    { text: 'por.toˈka.lə por.toˈka.li.e' },
+    { text: 'portocală portocalie', fontSize: 20 },
+  ],
+
+  // Practical phrases (A1 self-intro level)
+  [
+    { text: 'Мой любимый цвет — синий' },
+    { text: 'кулёаря мя фаворитэ есте алба́стру' },
+    { text: 'kuˈlo̯a.re.a mʲa fa.voˈri.tə ˈjes.te alˈbas.tru' },
+    { text: 'Culoarea mea favorită este albastru.', fontSize: 20 },
+  ],
+  [
+    { text: 'У меня красная машина' },
+    { text: 'эу ам о маши́нэ ро́шие' },
+    { text: 'ew am o maˈʃi.nə ˈro.ʃi.e' },
+    { text: 'Eu am o maşină roşie.', fontSize: 20 },
+  ],
+  [
+    { text: 'Это зелёный карандаш' },
+    { text: 'аста есте ун кре́он верде' },
+    { text: 'ˈas.ta ˈjes.te un kreˈon ˈver.de' },
+    { text: 'Asta este un creion verde.', fontSize: 20 },
+  ],
+  [
+    { text: 'Флаг России — белый, синий, красный' },
+    { text: 'стягул Руси́ей есте альб, алба́стру, ро́шу' },
+    { text: 'ˈstja.gul ruˈsi.ej ˈjes.te alb alˈbas.tru ˈro.ʃu' },
+    { text: 'Steagul Rusiei este alb, albastru, roșu.', fontSize: 20 },
+  ],
+  [
+    { text: 'Я люблю чёрный и белый' },
+    { text: 'эу иубе́ск негру ши альб' },
+    { text: 'ew juˈbesk ˈne.gru ʃi alb' },
+    { text: 'Eu iubesc negru și alb.', fontSize: 20 },
+  ],
+  [
+    { text: 'Какой твой любимый цвет?' },
+    { text: 'че кулёаре фаворитэ ай ту?' },
+    { text: 't͡ʃe kuˈlo̯a.re fa.voˈri.tə aj tu' },
+    { text: 'Ce culoare favorită ai tu?', fontSize: 20 },
+  ],
+  [
+    { text: 'Глаза у неё зелёные' },
+    { text: 'о́кий ей сынт ве́рзь' },
+    { text: 'ˈo.kʲi jej sɨnt ˈverzʲ' },
+    { text: 'Ochii ei sunt verzi.', fontSize: 20 },
+  ],
+  [
+    { text: 'Это жёлтая сумка' },
+    { text: 'аста есте о гэ́нтэ га́лбенэ' },
+    { text: 'ˈas.ta ˈjes.te o ˈɡɨn.tə ˈɡal.bə.nə' },
+    { text: 'Asta este o geantă galbenă.', fontSize: 20 },
+  ],
+  [
+    { text: 'Мой телефон чёрный' },
+    { text: 'телефо́нул меу есте негру' },
+    { text: 'te.leˈfo.nul mew ˈjes.te ˈne.gru' },
+    { text: 'Telefonul meu este negru.', fontSize: 20 },
+  ],
+  [
+    { text: 'У меня зелёные глаза' },
+    { text: 'эу ам о́кий ве́рзь' },
+    { text: 'ew am ˈo.kʲi ˈverzʲ' },
+    { text: 'Eu am ochii verzi.', fontSize: 20 },
+  ],
+];
