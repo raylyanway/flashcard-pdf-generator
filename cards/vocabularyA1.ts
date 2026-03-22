@@ -642,6 +642,7 @@ export const colorsA1: Card[] = [
     { text: 'альб' },
     { text: 'alb' },
     { text: 'alb', fontSize: 20 },
+    { text: 'Footer (always bottom)', pinBottom: true },
   ],
   [
     { text: 'чёрный' },

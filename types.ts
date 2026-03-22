@@ -15,6 +15,7 @@ export interface Line {
   gapTop?: number;
   gapBottom?: number;
   pinTop?: boolean;
+  pinBottom?: boolean;
 }
 
 export type Card = Line[];

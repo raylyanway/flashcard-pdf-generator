@@ -89,10 +89,12 @@ function setFontStyles(
 // Build wrapped lines for a single card
 function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
   const topLines: WrappedLine[] = [];
-  const normalLines: WrappedLine[] = [];
+  const middleLines: WrappedLine[] = [];
+  const bottomLines: WrappedLine[] = [];
 
   let topHeight = 0;
-  let normalHeight = 0;
+  let middleHeight = 0;
+  let bottomHeight = 0;
 
   const maxWidth = cardW - DEFAULTS.cardPadding * 2;
 
@@ -125,18 +127,23 @@ function buildWrappedLines(doc: jsPDF, card: Card, cardW: number) {
       if (line.pinTop) {
         topLines.push(wrappedLine);
         topHeight += lineHeight + gapTop + gapBottom;
+      } else if (line.pinBottom) {
+        bottomLines.push(wrappedLine);
+        bottomHeight += lineHeight + gapTop + gapBottom;
       } else {
-        normalLines.push(wrappedLine);
-        normalHeight += lineHeight + gapTop + gapBottom;
+        middleLines.push(wrappedLine);
+        middleHeight += lineHeight + gapTop + gapBottom;
       }
     });
   });
 
   return {
     topLines,
-    normalLines,
+    middleLines,
+    bottomLines,
     topHeight,
-    normalHeight,
+    middleHeight,
+    bottomHeight,
   };
 }
 
@@ -256,17 +263,49 @@ function wrapSegments(doc: jsPDF, segments: Segment[], maxWidth: number) {
   return wrapped;
 }
 
-function trimToFitSplit(
+function trimToFitThreeZones(
   topLines: WrappedLine[],
-  normalLines: WrappedLine[],
+  middleLines: WrappedLine[],
+  bottomLines: WrappedLine[],
   topHeight: number,
-  normalHeight: number,
+  middleHeight: number,
+  bottomHeight: number,
   cardH: number
 ) {
   const maxTextHeight = cardH - DEFAULTS.cardPadding * 2;
 
-  // 🔴 If top content alone overflows → we must trim it too (rare but safe)
-  while (topHeight > maxTextHeight && topLines.length) {
+  // 🔴 Trim bottom LAST priority? (we decide priority)
+  // Priority: top > bottom > middle (middle is most flexible)
+
+  // Step 1: trim middle first
+  while (
+    topHeight + middleHeight + bottomHeight > maxTextHeight &&
+    middleLines.length
+  ) {
+    const removed = middleLines.pop();
+    if (!removed) break;
+
+    middleHeight -=
+      removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
+  }
+
+  // Step 2: trim bottom if needed
+  while (
+    topHeight + middleHeight + bottomHeight > maxTextHeight &&
+    bottomLines.length
+  ) {
+    const removed = bottomLines.shift(); // remove from TOP of bottom block (visually nicer)
+    if (!removed) break;
+
+    bottomHeight -=
+      removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
+  }
+
+  // Step 3: trim top (last resort)
+  while (
+    topHeight + middleHeight + bottomHeight > maxTextHeight &&
+    topLines.length
+  ) {
     const removed = topLines.pop();
     if (!removed) break;
 
@@ -274,24 +313,28 @@ function trimToFitSplit(
       removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
   }
 
-  // Remaining space for normal lines
-  const remainingHeight = maxTextHeight - topHeight;
-
-  // 🟡 Trim normal lines first
-  while (normalHeight > remainingHeight && normalLines.length) {
-    const removed = normalLines.pop();
-    if (!removed) break;
-
-    normalHeight -=
-      removed.height + (removed.gapTop || 0) + (removed.gapBottom || 0);
-  }
-
   return {
     topLines,
-    normalLines,
+    middleLines,
+    bottomLines,
     topHeight,
-    normalHeight,
+    middleHeight,
+    bottomHeight,
   };
+}
+
+function getAlignedX(doc: jsPDF, line: WrappedLine, x: number, cardW: number) {
+  const padding = DEFAULTS.cardPadding;
+
+  let lineWidth = 0;
+  line.segments.forEach((seg) => {
+    setFontStyles(doc, seg);
+    lineWidth += doc.getTextWidth(seg.text);
+  });
+
+  if (DEFAULTS.horizontalAlign === 'left') return x + padding;
+  if (DEFAULTS.horizontalAlign === 'middle') return x + (cardW - lineWidth) / 2;
+  return x + cardW - lineWidth - padding;
 }
 
 function renderCard(
@@ -301,34 +344,24 @@ function renderCard(
   cardW: number,
   cardH: number,
   topLines: WrappedLine[],
-  normalLines: WrappedLine[],
+  middleLines: WrappedLine[],
+  bottomLines: WrappedLine[],
   topHeight: number,
-  normalHeight: number
+  middleHeight: number,
+  bottomHeight: number
 ) {
   doc.setLineDashPattern([1, 2], 0);
   doc.rect(x, y, cardW, cardH);
 
   const padding = DEFAULTS.cardPadding;
 
-  // 🔹 1. Render TOP pinned lines
+  // 🔹 TOP
   let topY = y + padding;
 
   topLines.forEach((line) => {
     topY += line.gapTop || 0;
 
-    let lineWidth = 0;
-    line.segments.forEach((seg) => {
-      setFontStyles(doc, seg);
-      lineWidth += doc.getTextWidth(seg.text);
-    });
-
-    let currentX =
-      DEFAULTS.horizontalAlign === 'left'
-        ? x + padding
-        : DEFAULTS.horizontalAlign === 'middle'
-          ? x + (cardW - lineWidth) / 2
-          : x + cardW - lineWidth - padding;
-
+    let currentX = getAlignedX(doc, line, x, cardW);
     line.segments.forEach((seg) => {
       setFontStyles(doc, seg);
       doc.text(seg.text, currentX, topY + line.height);
@@ -338,37 +371,41 @@ function renderCard(
     topY += line.height + (line.gapBottom || 0);
   });
 
-  // 🔹 2. Render NORMAL lines (existing behavior, but shifted down)
-  let startY: number;
+  // 🔹 BOTTOM
+  let bottomY = y + cardH - padding - bottomHeight;
 
-  const availableHeight = cardH - topHeight - padding * 2;
+  bottomLines.forEach((line) => {
+    bottomY += line.gapTop || 0;
 
-  if (DEFAULTS.verticalAlign === 'top') {
-    startY = y + padding + topHeight;
-  } else if (DEFAULTS.verticalAlign === 'middle') {
-    startY = y + padding + topHeight + (availableHeight - normalHeight) / 2;
-  } else {
-    startY = y + cardH - normalHeight - padding;
-  }
-
-  let currentY = startY;
-
-  normalLines.forEach((line) => {
-    currentY += line.gapTop || 0;
-
-    let lineWidth = 0;
+    let currentX = getAlignedX(doc, line, x, cardW);
     line.segments.forEach((seg) => {
       setFontStyles(doc, seg);
-      lineWidth += doc.getTextWidth(seg.text);
+      doc.text(seg.text, currentX, bottomY + line.height);
+      currentX += doc.getTextWidth(seg.text);
     });
 
-    let currentX =
-      DEFAULTS.horizontalAlign === 'left'
-        ? x + padding
-        : DEFAULTS.horizontalAlign === 'middle'
-          ? x + (cardW - lineWidth) / 2
-          : x + cardW - lineWidth - padding;
+    bottomY += line.height + (line.gapBottom || 0);
+  });
 
+  // 🔹 MIDDLE (remaining space)
+  const freeHeight = cardH - padding * 2 - topHeight - bottomHeight;
+
+  let middleStartY: number;
+
+  if (DEFAULTS.verticalAlign === 'top') {
+    middleStartY = y + padding + topHeight;
+  } else if (DEFAULTS.verticalAlign === 'middle') {
+    middleStartY = y + padding + topHeight + (freeHeight - middleHeight) / 2;
+  } else {
+    middleStartY = y + cardH - padding - bottomHeight - middleHeight;
+  }
+
+  let currentY = middleStartY;
+
+  middleLines.forEach((line) => {
+    currentY += line.gapTop || 0;
+
+    let currentX = getAlignedX(doc, line, x, cardW);
     line.segments.forEach((seg) => {
       setFontStyles(doc, seg);
       doc.text(seg.text, currentX, currentY + line.height);
@@ -392,19 +429,32 @@ function renderCards(cards: Record<string, Card[]>) {
 
       const col = cardIndexOnPage % layout.cols;
       const row = Math.floor(cardIndexOnPage / layout.cols);
+
       const x = layout.marginLeft + col * layout.cardW;
       const y = layout.marginTop + row * layout.cardH;
 
-      const { topLines, normalLines, topHeight, normalHeight } =
-        buildWrappedLines(doc, card, layout.cardW);
-      const trimmed = trimToFitSplit(
+      // 🔹 1. Build 3-zone layout
+      const {
         topLines,
-        normalLines,
+        middleLines,
+        bottomLines,
         topHeight,
-        normalHeight,
+        middleHeight,
+        bottomHeight,
+      } = buildWrappedLines(doc, card, layout.cardW);
+
+      // 🔹 2. Trim properly
+      const trimmed = trimToFitThreeZones(
+        topLines,
+        middleLines,
+        bottomLines,
+        topHeight,
+        middleHeight,
+        bottomHeight,
         layout.cardH
       );
 
+      // 🔹 3. Render
       renderCard(
         doc,
         x,
@@ -412,9 +462,11 @@ function renderCards(cards: Record<string, Card[]>) {
         layout.cardW,
         layout.cardH,
         trimmed.topLines,
-        trimmed.normalLines,
+        trimmed.middleLines,
+        trimmed.bottomLines,
         trimmed.topHeight,
-        trimmed.normalHeight
+        trimmed.middleHeight,
+        trimmed.bottomHeight
       );
     });
 
