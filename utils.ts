@@ -18,7 +18,7 @@ const DEFAULTS = {
   cardPadding: 1,
   fontName: 'Noto Sans',
   fontWeight: 'light' as FontWeight,
-  fontSize: 14,
+  fontSize: 10,
   verticalAlign: 'middle' as VerticalAlign,
   horizontalAlign: 'middle' as HorizontalAlign,
 };

@@ -637,12 +637,12 @@ export const familyA1: Card[] = [
 export const colorsA1: Card[] = [
   // Basic colors
   [
-    { text: 'Title (always top)', pinTop: true },
+    { text: 'A1 color', pinTop: true },
     { text: 'белый' },
     { text: 'альб' },
     { text: 'alb' },
     { text: 'alb', fontSize: 20 },
-    { text: 'Footer (always bottom)', pinBottom: true },
+    { text: '1', pinBottom: true },
   ],
   [
     { text: 'чёрный' },
