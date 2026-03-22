@@ -350,7 +350,7 @@ function renderCard(
   middleHeight: number,
   bottomHeight: number
 ) {
-  doc.setLineDashPattern([1, 2], 0);
+  doc.setLineDashPattern([0.5, 20], 0);
   doc.rect(x, y, cardW, cardH);
 
   const padding = DEFAULTS.cardPadding;
