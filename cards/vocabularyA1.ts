@@ -637,7 +637,7 @@ export const familyA1: Card[] = [
 export const colorsA1: Card[] = [
   // Basic colors
   [
-    { text: 'A1 color', pinTop: true },
+    { text: 'A1 Alphabet and pronunciation (including diacritics: ă, â, î, ș, ț)', pinTop: true },
     { text: 'белый' },
     { text: 'альб' },
     { text: 'alb' },
