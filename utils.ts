@@ -471,4 +471,37 @@ function renderCards(cards: Record<string, Card[]>) {
   });
 }
 
-export default renderCards;
+function addHeaderAndFooter(cards: Record<string, Card[]>) {
+  const cardsWithHeaderAndFooter: Record<string, Card[]> = {};
+  Object.entries(cards).forEach(([key, cardList]) => {
+    cardsWithHeaderAndFooter[key] = cardList.map((card, index) => {
+      const header: Line = {
+        text: key,
+        pinTop: true,
+      };
+
+      const footer: Line = {
+        text: `${index + 1}`,
+        pinBottom: true,
+      };
+
+      return [header, ...card, footer];
+    });
+  });
+
+  return cardsWithHeaderAndFooter;
+}
+
+function groupCards(cards: Record<string, Card[]>) {
+  const { numbersA1, colorsA1, ...rest } = cards;
+  const A1 = [...numbersA1, ...colorsA1];
+  return { A1, ...rest };
+}
+
+function render(cards: Record<string, Card[]>) {
+  const groupedCards = groupCards(cards);
+  const cardsWithHeaderAndFooter = addHeaderAndFooter(groupedCards);
+  renderCards(cardsWithHeaderAndFooter);
+}
+
+export default render;
