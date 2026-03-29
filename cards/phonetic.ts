@@ -413,12 +413,12 @@ export const phonetic: Card[] = [
   [
     { text: 'Символ (p) звучит как (п)', gapBottom: 5 },
     { text: 'хлеб' },
-    { text: [{ text: 'п', fontWeight: 'bold' }, { text: 'ыне' }] },
+    { text: [{ text: 'п', fontWeight: 'bold' }, { text: 'ыйне' }] },
     {
       text: [
         { text: 'ˈ' },
         { text: 'p', fontWeight: 'bold' },
-        { text: 'ɨ.ne' },
+        { text: 'ɨj.ne' },
       ],
     },
     { text: 'pâine', fontSize: 20 },
