@@ -1,4 +1,6 @@
 import { jsPDF } from 'jspdf';
+import * as cardModules from './cards';
+
 import type {
   Card,
   FontWeight,
@@ -8,6 +10,12 @@ import type {
   VerticalAlign,
   WrappedLine,
 } from './types';
+
+type CardsFromModule = Partial<Record<keyof typeof cardModules, Card[]>>;
+
+type CardsMap = CardsFromModule & {
+  [key: string]: Card[] | undefined;
+};
 
 import notoSansBold from './fonts/notoSansBold';
 import notoSansLight from './fonts/notoSansLight';
@@ -417,8 +425,10 @@ function renderCard(
 }
 
 // Main: generate PDF
-function renderCards(cards: Record<string, Card[]>) {
+function renderCards(cards: CardsMap) {
   Object.entries(cards).forEach(([key, cardList]) => {
+    if (!cardList) return;
+
     const doc = createDocument();
     const layout = getLayout();
     const filename = `${key}.pdf`;
@@ -471,9 +481,10 @@ function renderCards(cards: Record<string, Card[]>) {
   });
 }
 
-function addHeaderAndFooter(cards: Record<string, Card[]>) {
-  const cardsWithHeaderAndFooter: Record<string, Card[]> = {};
+function addHeaderAndFooter(cards: CardsMap): CardsMap {
+  const cardsWithHeaderAndFooter: CardsMap = {};
   Object.entries(cards).forEach(([key, cardList]) => {
+    if (!cardList) return;
     cardsWithHeaderAndFooter[key] = cardList.map((card, index) => {
       const header: Line = {
         text: key,
@@ -492,13 +503,13 @@ function addHeaderAndFooter(cards: Record<string, Card[]>) {
   return cardsWithHeaderAndFooter;
 }
 
-function groupCards(cards: Record<string, Card[]>) {
-  const { numbersA1, colorsA1, ...rest } = cards;
+function groupCards(cards: CardsMap): CardsMap {
+  const { numbersA1 = [], colorsA1 = [], ...rest } = cards;
   const A1 = [...numbersA1, ...colorsA1];
   return { A1, ...rest };
 }
 
-function render(cards: Record<string, Card[]>) {
+function render(cards: CardsMap) {
   const groupedCards = groupCards(cards);
   const cardsWithHeaderAndFooter = addHeaderAndFooter(groupedCards);
   renderCards(cardsWithHeaderAndFooter);
