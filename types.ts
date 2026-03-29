@@ -1,6 +1,6 @@
 export type FontWeight = 'light' | 'bold';
-export type HorizontalAlign = "left" | "middle" | "right";
-export type VerticalAlign = "top" | "middle" | "bottom";
+export type HorizontalAlign = 'left' | 'middle' | 'right';
+export type VerticalAlign = 'top' | 'middle' | 'bottom';
 
 export interface Segment {
   text: string;

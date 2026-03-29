@@ -433,7 +433,6 @@ function renderCards(cards: Record<string, Card[]>) {
       const x = layout.marginLeft + col * layout.cardW;
       const y = layout.marginTop + row * layout.cardH;
 
-      // 🔹 1. Build 3-zone layout
       const {
         topLines,
         middleLines,
@@ -443,7 +442,6 @@ function renderCards(cards: Record<string, Card[]>) {
         bottomHeight,
       } = buildWrappedLines(doc, card, layout.cardW);
 
-      // 🔹 2. Trim properly
       const trimmed = trimToFitThreeZones(
         topLines,
         middleLines,
@@ -454,7 +452,6 @@ function renderCards(cards: Record<string, Card[]>) {
         layout.cardH
       );
 
-      // 🔹 3. Render
       renderCard(
         doc,
         x,
