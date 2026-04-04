@@ -17,7 +17,7 @@
 
 import type { Card } from '../types';
 
-export const testCards: Card[] = [
+export const test_cards: Card[] = [
   [
     {
       text: 'Символ (ˈˈˈ) ILilIвится перед ударным слогом ставится перед ударным слогом ставится перед ударным слогом',

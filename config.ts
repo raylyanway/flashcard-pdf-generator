@@ -13,4 +13,7 @@ export const cardConfig: CardConfig = {
       'verb_a_avea',
     ],
   },
+  test: {
+    A1: ['test_cards'],
+  },
 };
