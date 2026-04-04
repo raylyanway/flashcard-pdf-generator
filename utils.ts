@@ -485,14 +485,19 @@ function addHeaderAndFooter(cards: CardsMap): CardsMap {
   const cardsWithHeaderAndFooter: CardsMap = {};
   Object.entries(cards).forEach(([key, cardList]) => {
     if (!cardList) return;
+
+    const splittedKey = key.split('_');
+    const title = splittedKey[splittedKey.length - 1];
+    const level = splittedKey[splittedKey.length - 2];
+
     cardsWithHeaderAndFooter[key] = cardList.map((card, index) => {
       const header: Line = {
-        text: key,
+        text: title,
         pinTop: true,
       };
 
       const footer: Line = {
-        text: `${index + 1}`,
+        text: `${index + 1} / ${cardList.length} (${level} - ${title})`,
         pinBottom: true,
       };
 
