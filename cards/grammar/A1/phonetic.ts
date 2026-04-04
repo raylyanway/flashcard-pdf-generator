@@ -1,5 +1,6 @@
 import { Card } from '../../../types';
 
+// Pronunciation
 export const phonetic: Card[] = [
   [
     { text: 'Символ (ˈ) ставится перед ударным слогом', gapBottom: 5 },

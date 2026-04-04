@@ -1,5 +1,6 @@
 import { Card } from '../../../types';
 
+// Alphabet (including diacritics: ă, â, î, ș, ț)
 export const alphabet: Card[] = [
   [
     { text: 'Румынский алфавит' },
