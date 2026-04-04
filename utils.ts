@@ -491,7 +491,7 @@ function constructCards(cards: CardsMap): CardsMap {
 
         const cardsWithHeaderAndFooter = cardList.map((card) => {
           const header: Line = {
-            text: topic,
+            text: topic.replace(/_/g, ' '),
             pinTop: true,
           };
 

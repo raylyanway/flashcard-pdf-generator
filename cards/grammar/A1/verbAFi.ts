@@ -1,7 +1,7 @@
 import { Card } from '../../../types';
 
 // Verb 'a fi' (to be) – present tense
-export const verbAFi: Card[] = [
+export const verb_a_fi: Card[] = [
   [
     { text: 'Глагол a fi (быть) – настоящее время', gapBottom: 5 },
     { text: 'я' },

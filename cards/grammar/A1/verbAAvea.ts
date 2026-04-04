@@ -1,7 +1,7 @@
 import { Card } from '../../../types';
 
 // Verb 'a avea' (to have) – present tense
-export const verbAAvea: Card[] = [
+export const verb_a_avea: Card[] = [
   [
     { text: 'Глагол a avea (иметь) – настоящее время', gapBottom: 5 },
     { text: 'я' },

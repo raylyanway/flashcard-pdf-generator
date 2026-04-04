@@ -9,8 +9,8 @@ export const cardConfig: CardConfig = {
       'gender',
       'plural',
       'pronouns',
-      'verbAFi',
-      'verbAAvea',
+      'verb_a_fi',
+      'verb_a_avea',
     ],
   },
 };
