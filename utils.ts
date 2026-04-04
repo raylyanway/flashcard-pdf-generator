@@ -510,8 +510,6 @@ function constructCards(cards: CardsMap): CardsMap {
     });
   });
 
-  console.log(111, cardsWithHeaderAndFooter);
-
   return cardsWithHeaderAndFooter;
 }
 
