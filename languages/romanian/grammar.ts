@@ -2,7 +2,6 @@ export const grammar = {
   A1: [
     'Alphabet (including diacritics: ă, â, î, ș, ț)',
     'Pronunciation',
-    // 'Basic spelling rules', // Didn't get interesting result
     'Definite and indefinite articles (un/o, -ul/-a)',
     'Gender of nouns (masculine, feminine, neuter)',
     'Plural formation of nouns',
