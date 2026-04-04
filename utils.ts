@@ -504,15 +504,9 @@ function addHeaderAndFooter(cards: CardsMap): CardsMap {
 }
 
 function groupCards(cards: CardsMap): CardsMap {
-  const {
-    alphabet = [],
-    phonetic = [],
-    numbersA1 = [],
-    colorsA1 = [],
-    ...rest
-  } = cards;
-  const A1 = [...alphabet, ...phonetic, ...numbersA1, ...colorsA1];
-  return { A1, ...rest };
+  const { alphabet = [], phonetic = [], ...rest } = cards;
+  const A1_grammar = [...alphabet, ...phonetic];
+  return { A1_grammar, ...rest };
 }
 
 function render(cards: CardsMap) {
