@@ -504,8 +504,27 @@ function addHeaderAndFooter(cards: CardsMap): CardsMap {
 }
 
 function groupCards(cards: CardsMap): CardsMap {
-  const { alphabet = [], phonetic = [], articles = [], ...rest } = cards;
-  const A1_grammar = [...alphabet, ...phonetic, ...articles];
+  const {
+    alphabet = [],
+    phonetic = [],
+    articles = [],
+    gender = [],
+    plural = [],
+    pronouns = [],
+    verbAFi = [],
+    verbAAvea = [],
+    ...rest
+  } = cards;
+  const A1_grammar = [
+    ...alphabet,
+    ...phonetic,
+    ...articles,
+    ...gender,
+    ...plural,
+    ...pronouns,
+    ...verbAFi,
+    ...verbAAvea,
+  ];
   return { A1_grammar, ...rest };
 }
 
