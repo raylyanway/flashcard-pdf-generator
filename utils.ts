@@ -1,8 +1,8 @@
 import { jsPDF } from 'jspdf';
-import * as cardModules from './cards';
 
 import type {
   Card,
+  CardsMap,
   FontWeight,
   HorizontalAlign,
   Line,
@@ -11,14 +11,9 @@ import type {
   WrappedLine,
 } from './types';
 
-type CardsFromModule = Partial<Record<keyof typeof cardModules, Card[]>>;
-
-type CardsMap = CardsFromModule & {
-  [key: string]: Card[] | undefined;
-};
-
 import notoSansBold from './fonts/notoSansBold';
 import notoSansLight from './fonts/notoSansLight';
+import { cardConfig } from './config';
 
 const DEFAULTS = {
   gapTop: 0,
@@ -481,62 +476,47 @@ function renderCards(cards: CardsMap) {
   });
 }
 
-function addHeaderAndFooter(cards: CardsMap): CardsMap {
+function constructCards(cards: CardsMap): CardsMap {
   const cardsWithHeaderAndFooter: CardsMap = {};
-  Object.entries(cards).forEach(([key, cardList]) => {
-    if (!cardList) return;
 
-    const splittedKey = key.split('_');
-    const title = splittedKey[splittedKey.length - 1];
-    const level = splittedKey[splittedKey.length - 2];
+  Object.entries(cardConfig).forEach(([contentName, contentValue]) => {
+    Object.entries(contentValue).forEach(([level, topics]) => {
+      let cardNumber = 1;
+      let updatedCards: Card[] = [];
+      const fileName = `${contentName}_${level}`;
 
-    cardsWithHeaderAndFooter[key] = cardList.map((card, index) => {
-      const header: Line = {
-        text: title,
-        pinTop: true,
-      };
+      topics.forEach((topic) => {
+        const cardList = cards[topic];
+        if (!cardList) return;
 
-      const footer: Line = {
-        text: `${index + 1} / ${cardList.length} (${level} - ${title})`,
-        pinBottom: true,
-      };
+        const cardsWithHeaderAndFooter = cardList.map((card) => {
+          const header: Line = {
+            text: topic,
+            pinTop: true,
+          };
 
-      return [header, ...card, footer];
+          const footer: Line = {
+            text: `${cardNumber++} (${level} - ${contentName})`,
+            pinBottom: true,
+          };
+
+          return [header, ...card, footer];
+        });
+
+        updatedCards = updatedCards.concat(cardsWithHeaderAndFooter);
+      });
+
+      cardsWithHeaderAndFooter[fileName] = updatedCards;
     });
   });
+
+  console.log(111, cardsWithHeaderAndFooter);
 
   return cardsWithHeaderAndFooter;
 }
 
-function groupCards(cards: CardsMap): CardsMap {
-  const {
-    alphabet = [],
-    phonetic = [],
-    articles = [],
-    gender = [],
-    plural = [],
-    pronouns = [],
-    verbAFi = [],
-    verbAAvea = [],
-    ...rest
-  } = cards;
-  const A1_grammar = [
-    ...alphabet,
-    ...phonetic,
-    ...articles,
-    ...gender,
-    ...plural,
-    ...pronouns,
-    ...verbAFi,
-    ...verbAAvea,
-  ];
-  return { A1_grammar, ...rest };
-}
-
 function render(cards: CardsMap) {
-  const groupedCards = groupCards(cards);
-  const cardsWithHeaderAndFooter = addHeaderAndFooter(groupedCards);
-  renderCards(cardsWithHeaderAndFooter);
+  renderCards(constructCards(cards));
 }
 
 export default render;

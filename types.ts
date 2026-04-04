@@ -1,3 +1,5 @@
+import * as cardModules from './cards';
+
 export type FontWeight = 'light' | 'bold';
 export type HorizontalAlign = 'left' | 'middle' | 'right';
 export type VerticalAlign = 'top' | 'middle' | 'bottom';
@@ -18,11 +20,19 @@ export interface Line {
   pinBottom?: boolean;
 }
 
-export type Card = Line[];
-
 export interface WrappedLine {
   segments: Segment[];
   height: number;
   gapTop?: number;
   gapBottom?: number;
 }
+
+export type Card = Line[];
+type CardModule = keyof typeof cardModules;
+type CardsFromModule = Partial<Record<CardModule, Card[]>>;
+
+export type CardsMap = CardsFromModule & {
+  [key: string]: Card[] | undefined;
+};
+
+export type CardConfig = Record<string, Record<string, CardModule[]>>;
